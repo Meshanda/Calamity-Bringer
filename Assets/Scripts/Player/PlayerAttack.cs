@@ -21,14 +21,13 @@ public class PlayerAttack : MonoBehaviour
         _isAttacking = true;
         _armCollider.SetActive(true);
         Debug.Log("ATTAAAAAAQUE!!");
+    }
 
-        // TODO: to replace with anim event
-        StartCoroutine(Utils.DelayRoutine(.5f, () =>
-        {
-            _armCollider.SetActive(false);
-            _isAttacking = false;
-            Debug.Log("Stop attack.");
-        }));
+    public void OnAttackAnimationEnd()
+    {
+        _armCollider.SetActive(false);
+        _isAttacking = false;
+        Debug.Log("Stop attack.");
     }
     
     public void OnArmTriggerEnter(Collider otherCollider)
