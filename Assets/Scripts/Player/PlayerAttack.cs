@@ -3,7 +3,8 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] private GameObject _armCollider;
-
+    [SerializeField] private Animator _animator;
+    
     private bool _isAttacking;
     public bool IsAttacking => _isAttacking;
 
@@ -16,6 +17,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (_isAttacking) return;
 
+        _animator.SetTrigger("Attack");
         _isAttacking = true;
         _armCollider.SetActive(true);
         Debug.Log("ATTAAAAAAQUE!!");
@@ -32,7 +34,7 @@ public class PlayerAttack : MonoBehaviour
     public void OnArmTriggerEnter(Collider otherCollider)
     {
         if (!otherCollider.CompareTag("Building")) return;
-        
+
         Debug.Log($"Trigger with: {otherCollider.gameObject.name}");
     }
 }

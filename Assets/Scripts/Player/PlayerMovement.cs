@@ -56,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController _controller;
     private GameObject _mainCamera;
     [SerializeField] private Animator _animator;
+    [SerializeField] private bool _drawGizmos;
 
 
     private void Awake()
@@ -146,6 +147,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        if (!_drawGizmos) return;
         Gizmos.color = _grounded ? Color.green : Color.red;
         
         Gizmos.DrawSphere(SpherePosition.position, GroundRadius);
