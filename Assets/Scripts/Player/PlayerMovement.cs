@@ -1,9 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -109,7 +106,6 @@ public class PlayerMovement : MonoBehaviour
     
     private void GravityField()
     {
-        Debug.Log(_controller.isGrounded);
         if (_controller.isGrounded)
         {
             //stop the infinite fall
@@ -145,8 +141,8 @@ public class PlayerMovement : MonoBehaviour
         IsJumping = true;
         _verticalVelocity = (float)Math.Sqrt(Gravity * -2f * JumpHeight);
     }
-    
-#endregion
+
+    #endregion
 
     private void OnDrawGizmos()
     {

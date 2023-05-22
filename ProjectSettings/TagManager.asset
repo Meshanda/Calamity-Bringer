@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - ClingPoint
+  - Building
   layers:
   - Default
   - TransparentFX
