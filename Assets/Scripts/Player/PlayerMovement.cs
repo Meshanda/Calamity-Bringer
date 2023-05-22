@@ -64,7 +64,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform _toRotate;
 
     private float _rotationVelocity;
-    private float _rotationAngle;
 #endregion
 
     private CharacterController _controller;
@@ -101,16 +100,7 @@ public class PlayerMovement : MonoBehaviour
         // set target speed based on move speed, sprint speed and if sprint is pressed
         float targetSpeed = _walkSpeed;
         _speed = targetSpeed;
-		
-        //normalise input direction
-        Vector3 targetDirection = Quaternion.Euler(0.0f, _rotationAngle, 0.0f) * Vector3.forward;
-
-        // move the player
-        _controller.Move(targetDirection.normalized * (_speed  * Time.deltaTime));
-    }
-    
-    private void Rotate()
-    {
+        
         Vector3 inputDirection = _horizontalAxis.normalized;
 		
         // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
@@ -118,8 +108,22 @@ public class PlayerMovement : MonoBehaviour
         float zDirection = inputDirection.z;
         float xDirection = inputDirection.x;
 
-        _rotationAngle = Mathf.Atan2(xDirection, zDirection) * Mathf.Rad2Deg + _mainCamera.transform.eulerAngles.y;
-        float rotation = Mathf.SmoothDampAngle(_toRotate.eulerAngles.y, _rotationAngle, ref _rotationVelocity, _rotateSpeed);
+        float rotationAngle = Mathf.Atan2(xDirection, zDirection) * Mathf.Rad2Deg + _mainCamera.transform.eulerAngles.y;
+		
+        //normalise input direction
+        Vector3 targetDirection = Quaternion.Euler(0.0f, rotationAngle, 0.0f) * Vector3.forward;
+
+        // move the player
+        _controller.Move(targetDirection.normalized * (_speed  * Time.deltaTime));
+    }
+    
+    private void Rotate()
+    {
+        // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
+        // if there is a move input rotate player when the player is moving
+      
+        float rotationAngle = _mainCamera.transform.eulerAngles.y;
+        float rotation = Mathf.SmoothDampAngle(_toRotate.eulerAngles.y, rotationAngle, ref _rotationVelocity, _rotateSpeed);
         _toRotate.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
     }
     
