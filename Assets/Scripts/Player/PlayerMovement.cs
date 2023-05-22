@@ -53,6 +53,20 @@ public class PlayerMovement : MonoBehaviour
     private bool IsJumping = false;
 #endregion
 
+#region Rotation
+    [Space(5)]
+    [Header("Rotation field")]
+
+    [Range(0.0f, 0.3f)]
+    [Tooltip("How fast the character face the direction")]
+    [SerializeField] private float _rotateSpeed;
+
+    [SerializeField] private Transform _toRotate;
+
+    private float _rotationVelocity;
+    private float _rotationAngle;
+#endregion
+
     private CharacterController _controller;
     private GameObject _mainCamera;
     [SerializeField] private Animator _animator;
@@ -70,6 +84,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         GravityField();
+        Rotate();
         Move();
     }
     
@@ -89,15 +104,24 @@ public class PlayerMovement : MonoBehaviour
         _speed = targetSpeed;
 		
         //normalise input direction
-        Vector3 inputDirection = _horizontalAxis.normalized;
-        
-		
-        float targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + _mainCamera.transform.eulerAngles.y;
-
-        Vector3 targetDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
+        Vector3 targetDirection = Quaternion.Euler(0.0f, _rotationAngle, 0.0f) * Vector3.forward;
 
         // move the player
         _controller.Move(targetDirection.normalized * (_speed  * Time.deltaTime));
+    }
+    
+    private void Rotate()
+    {
+        Vector3 inputDirection = _horizontalAxis.normalized;
+		
+        // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
+        // if there is a move input rotate player when the player is moving
+        float zDirection = inputDirection.z;
+        float xDirection = inputDirection.x;
+
+        _rotationAngle = Mathf.Atan2(xDirection, zDirection) * Mathf.Rad2Deg + _mainCamera.transform.eulerAngles.y;
+        float rotation = Mathf.SmoothDampAngle(_toRotate.eulerAngles.y, _rotationAngle, ref _rotationVelocity, _rotateSpeed);
+        _toRotate.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
     }
     
     private void GroundChecker()
