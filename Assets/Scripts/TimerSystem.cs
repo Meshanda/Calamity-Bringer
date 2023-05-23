@@ -5,6 +5,9 @@ using UnityEngine;
 public class TimerSystem : MonoBehaviour
 {
     [SerializeField] private FloatVariable _timerVariable;
+    [SerializeField] private float _timerMax;
+
+    public static event Action TimerFinished;
 
     private void Start()
     {
@@ -14,5 +17,8 @@ public class TimerSystem : MonoBehaviour
     private void Update()
     {
         _timerVariable.value += Time.deltaTime;
+
+        if (_timerVariable.value >= _timerMax)
+            TimerFinished?.Invoke();
     }
 }
