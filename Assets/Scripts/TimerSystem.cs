@@ -11,14 +11,14 @@ public class TimerSystem : MonoBehaviour
 
     private void Start()
     {
-        _timerVariable.value = 0;
+        _timerVariable.value = _timerMax;
     }
 
     private void Update()
     {
-        _timerVariable.value += Time.deltaTime;
+        _timerVariable.value -= Time.deltaTime;
 
-        if (_timerVariable.value >= _timerMax)
+        if (_timerVariable.value <= 0)
             TimerFinished?.Invoke();
     }
 }
