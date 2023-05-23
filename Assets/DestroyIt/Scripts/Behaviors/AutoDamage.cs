@@ -29,6 +29,7 @@ namespace DestroyIt
             if (_destructible == null) return;
             if (_autoDamageStarted) return;
 
+            Debug.Log($"Apply damage {damagePerInterval}");
             if (_destructible.CurrentHitPoints <= startAtHitPoints)
             {
                 InvokeRepeating("ApplyDamage", 0f, damageIntervalSeconds);
