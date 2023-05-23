@@ -167,7 +167,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3c45d287ea7cf64a849bb064f54b015, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxNbPeople: 5000
+  SpawnCenterZone: {x: 0, y: 0, z: 0}
+  SizeXZone: 50
+  SizeZZone: 50
+  PeopleMinSpeed: 10
+  PeopleMaxSpeed: 50
+  MaxNbPeople: 10
   PlayerPrefab: {fileID: 1855904770375235841, guid: 7ad2b07983313904d80d30305caa434e,
     type: 3}
 --- !u!1 &1345981793
