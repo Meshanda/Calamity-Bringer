@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6832257880143599411}
   - component: {fileID: 8207630092791866590}
   - component: {fileID: 7331166409692642793}
+  - component: {fileID: 5692175595668862259}
   - component: {fileID: 129170172564225082}
   - component: {fileID: 8403962207814276980}
   - component: {fileID: 2717334866468588627}
@@ -37,7 +38,7 @@ Transform:
   - {fileID: 4550177600567059047}
   - {fileID: 8947868985395090365}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8207630092791866590
 MeshFilter:
@@ -89,6 +90,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &5692175595668862259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673040110794484131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ea0bf11ecf82e643a5e98cb74b9555b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  points: 1
 --- !u!114 &129170172564225082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,6 +117,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _force: 5000
   _childGravityMultiplier: 50
+  OnExplode:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5692175595668862259}
+        m_TargetAssemblyTypeName: Scorer, Assembly-CSharp
+        m_MethodName: Score
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!65 &8403962207814276980
 BoxCollider:
   m_ObjectHideFlags: 0

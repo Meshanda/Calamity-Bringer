@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Events;
 
 [RequireComponent(typeof(BoxCollider))]
 public class DestroyBuilding : MonoBehaviour
 {
     [SerializeField] private float _force;
     [SerializeField] private float _childGravityMultiplier;
+
+    public UnityEvent OnExplode;
     //private void OnCollisionEnter(Collision collision)
     //{
     //    if (collision.gameObject.tag == "Player") 
@@ -45,5 +47,7 @@ public class DestroyBuilding : MonoBehaviour
         }
         
         bc.isTrigger = true;
+
+        OnExplode.Invoke();
     }
 }
