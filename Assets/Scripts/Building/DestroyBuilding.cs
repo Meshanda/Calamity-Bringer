@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(BoxCollider))]
+
+[RequireComponent(typeof(Collider))]
 public class DestroyBuilding : MonoBehaviour
 {
     [SerializeField] private float _force;
@@ -28,10 +29,10 @@ public class DestroyBuilding : MonoBehaviour
 
     public void Explode( Transform other) 
     {
-        BoxCollider bc = gameObject.GetComponent<BoxCollider>();
+        Collider bc = gameObject.GetComponent<Collider>();
         
 
-        BoxCollider[] childs = GetComponentsInChildren<BoxCollider>();
+        Collider[] childs = GetComponentsInChildren<Collider>();
         foreach(var child in childs) 
         {
             child.isTrigger = false;
@@ -47,7 +48,10 @@ public class DestroyBuilding : MonoBehaviour
         }
         
         bc.isTrigger = true;
-
         OnExplode.Invoke();
+        
+        Destroy(this);
+        Destroy(bc);
+
     }
 }

@@ -3,18 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent (typeof(Rigidbody), typeof(BoxCollider))]
+[RequireComponent (typeof(Rigidbody), typeof(Collider))]
 public class MovementDebris : MonoBehaviour
 {
     public float GravityMultiplier { get; set; }
     
     private Rigidbody _rb;
-    private BoxCollider _bc;
+    private Collider _bc;
     
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _bc = GetComponent<BoxCollider>();
+        _bc = GetComponent<Collider>();
     }
 
     private void FixedUpdate()
@@ -32,5 +32,8 @@ public class MovementDebris : MonoBehaviour
         _bc.isTrigger = true;
         _rb.velocity = Vector3.zero;
         _rb.angularVelocity = Vector3.zero;
+        
+        Destroy(this);
+        Destroy(_bc);
     }
 }
