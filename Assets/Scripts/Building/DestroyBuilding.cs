@@ -7,6 +7,7 @@ using UnityEngine;
 public class DestroyBuilding : MonoBehaviour
 {
     [SerializeField] private float _force;
+    [SerializeField] private float _childGravityMultiplier;
     //private void OnCollisionEnter(Collision collision)
     //{
     //    if (collision.gameObject.tag == "Player") 
@@ -17,9 +18,8 @@ public class DestroyBuilding : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("a");
             Explode(other.gameObject.transform);
         }
     }
@@ -33,7 +33,8 @@ public class DestroyBuilding : MonoBehaviour
         foreach(var child in childs) 
         {
             child.isTrigger = false;
-
+            if (child.gameObject.TryGetComponent(out MovementDebris movDebris))
+                movDebris.GravityMultiplier = _childGravityMultiplier;
         }
 
         Rigidbody[] rigidbodys= GetComponentsInChildren<Rigidbody>();
@@ -41,8 +42,8 @@ public class DestroyBuilding : MonoBehaviour
         {
             child.useGravity = true;
             child.AddForce((child.position - other.position).normalized* _force);
-
         }
+        
         bc.isTrigger = true;
     }
 }

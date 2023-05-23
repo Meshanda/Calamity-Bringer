@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,22 +6,28 @@ using UnityEngine;
 [RequireComponent (typeof(Rigidbody), typeof(BoxCollider))]
 public class MovementDebris : MonoBehaviour
 {
+    public float GravityMultiplier { get; set; }
+    
     private Rigidbody _rb;
     private BoxCollider _bc;
-    // Start is called before the first frame update
+    
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _bc = GetComponent<BoxCollider>();
     }
 
-    // Update is called once per frame
+    private void FixedUpdate()
+    {
+        if (!_rb.useGravity) return;
+        
+        _rb.AddForce(Vector3.down * GravityMultiplier);
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == 9)
-            return;
-        Debug.Log(collision.gameObject.name);
+        if (collision.gameObject.layer != 7) return;
+        
         _rb.useGravity = false;
         _bc.isTrigger = true;
         _rb.velocity = Vector3.zero;

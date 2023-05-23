@@ -20,20 +20,16 @@ public class PlayerAttack : MonoBehaviour
         _animator.SetTrigger("Attack");
         _isAttacking = true;
         _armCollider.SetActive(true);
-        Debug.Log("ATTAAAAAAQUE!!");
     }
 
     public void OnAttackAnimationEnd()
     {
         _armCollider.SetActive(false);
         _isAttacking = false;
-        Debug.Log("Stop attack.");
     }
     
     public void OnArmTriggerEnter(Collider otherCollider)
     {
         if (!otherCollider.CompareTag("Building")) return;
-
-        Debug.Log($"Trigger with: {otherCollider.gameObject.name}");
     }
 }

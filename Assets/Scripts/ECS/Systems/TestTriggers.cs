@@ -39,7 +39,7 @@ public partial struct GetNumCollisionEventsSystem : ISystem
              state.Dependency
             ).Complete();
 
-        UnityEngine.Debug.Log("CollisionP: " + numCollisionEvents.Value);
+        //UnityEngine.Debug.Log("CollisionP: " + numCollisionEvents.Value);
 
         numCollisionEvents.Dispose();
     }
