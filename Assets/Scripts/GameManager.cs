@@ -1,6 +1,8 @@
+using System;
 using UnityEngine;
 using ScriptableObjects.Variables;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -20,6 +22,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private IntVariable score;
     [HideInInspector] public UnityEvent OnScoreUpdate;
 
+    private void OnEnable()
+    {
+        TimerSystem.TimerFinished += OnTimerFinished;
+    }
+
+    private void OnDisable()
+    {
+        TimerSystem.TimerFinished -= OnTimerFinished;
+    }
+
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -31,5 +43,11 @@ public class GameManager : MonoBehaviour
     {
         score.value += points;
         OnScoreUpdate.Invoke();
+    }
+    
+    private void OnTimerFinished()
+    {
+        SceneManager.LoadSceneAsync(SceneReferences.END_SCENE, LoadSceneMode.Single)
+            .completed += _ => Cursor.lockState = CursorLockMode.None;
     }
 }
