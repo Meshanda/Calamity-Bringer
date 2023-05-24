@@ -4,12 +4,15 @@ using UnityEngine;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Burst;
+using Unity.Mathematics;
+using Unity.Collections;
 
 [BurstCompile]
 
-[UpdateAfter(typeof(PeopleSpawnerSystem))]
+[UpdateAfter(typeof(PersonSpawnerSystem))]
 public partial struct MovingSystem : ISystem
 {
+    [BurstCompile]
     public void OnCreate(ref SystemState state)
     {
         state.RequireForUpdate<RandomComponent>();
@@ -28,9 +31,13 @@ public partial struct MovingSystem : ISystem
 
         jobHandle.Complete();
 
+        EntityQuery peopleEntityQuery = World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntityQuery(typeof(PersonZone));
+        NativeArray<PersonZone> movementZones = peopleEntityQuery.ToComponentDataArray<PersonZone>(Allocator.Persistent);
+
         new TestReachTaretPositionJob
         {
-            RandomComponent = randomComponent
+            RandomComponent = randomComponent,
+            ZoneList = movementZones
         }.Run();
     }
 }

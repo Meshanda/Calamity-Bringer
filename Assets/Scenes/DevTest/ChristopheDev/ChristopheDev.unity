@@ -289,6 +289,7 @@ MonoBehaviour:
   OnScoreUpdate:
     m_PersistentCalls:
       m_Calls: []
+  _objectToDisableOnVictory: []
 --- !u!1 &658562376
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,7 +586,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1319316499
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -771,7 +772,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1768953868
 Transform:
   m_ObjectHideFlags: 0
