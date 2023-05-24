@@ -171,7 +171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PeopleMinSpeed: 10
   PeopleMaxSpeed: 50
-  MaxNbPeople: 100
+  MaxNbPeople: 5000
   PlayerPrefab: {fileID: 1855904770375235841, guid: 7ad2b07983313904d80d30305caa434e,
     type: 3}
 --- !u!1 &848932500
@@ -220,6 +220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SizeXZone: 100
   SizeZZone: 50
+  DrawGizmos: 1
   GizmosColor: {r: 1, g: 0.9986277, b: 0, a: 1}
 --- !u!1 &1345981793
 GameObject:
@@ -311,4 +312,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SizeXZone: 100
   SizeZZone: 50
+  DrawGizmos: 1
   GizmosColor: {r: 0, g: 1, b: 0, a: 1}

@@ -8,10 +8,13 @@ public class PersonZoneAuthoring : MonoBehaviour
     public float SizeXZone;
     public float SizeZZone;
 
+    public bool DrawGizmos;
     public Color GizmosColor;
 
     private void OnDrawGizmos()
     {
+        if (!DrawGizmos) return;
+
         Gizmos.color = GizmosColor;
         Gizmos.DrawCube(transform.position, new Vector3(SizeXZone, 0.01f, SizeZZone));
     }

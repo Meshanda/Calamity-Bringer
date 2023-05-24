@@ -14,7 +14,7 @@ public readonly partial struct MoveToPositionAspect : IAspect
 
     private readonly RefRO<Speed> _speed;
     private readonly RefRW<TargetPosition> _targetPosition;
-    private readonly RefRW<MovementZoneIndex> _moveZoneIndex;
+    private readonly RefRO<MovementZoneIndex> _moveZoneIndex;
     
     private const float REACHEDTARGETDISTANCE = .5f;
 
@@ -35,7 +35,7 @@ public readonly partial struct MoveToPositionAspect : IAspect
 
     private float3 GetDestinationPosition(RefRW<RandomComponent> randomComponent, NativeArray<PersonZone> zoneList)
     {
-        PersonZone zone = zoneList[_moveZoneIndex.ValueRW.MovementIndex];
+        PersonZone zone = zoneList[_moveZoneIndex.ValueRO.MovementIndex];
 
         float startPosX = randomComponent.ValueRW.Random.NextFloat(zone.SpawnCenterZone.x - (zone.SizeXZone / 2), zone.SpawnCenterZone.x + (zone.SizeXZone / 2));
         float startPosZ = randomComponent.ValueRW.Random.NextFloat(zone.SpawnCenterZone.z - (zone.SizeZZone / 2), zone.SpawnCenterZone.z + (zone.SizeZZone / 2));
