@@ -4,18 +4,28 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuScript : MonoBehaviour
 {
+    [Serializable]
+    public enum MenuState
+    {
+        Main,
+        Config,
+        Settings
+    }
+    
     [Header("Cameras")] 
     [SerializeField] private GameObject _mainCam;
     [SerializeField] private GameObject _configCam;
+    [SerializeField] private GameObject _settingsCam;
     
     [Space(10)]
     [Header("Canvases")] 
     [SerializeField] private GameObject _mainCanvas;
     [SerializeField] private GameObject _configCanvas;
+    [SerializeField] private GameObject _settingsCanvas;
 
     private void Start()
     {
-        ToggleMainCanvas(true);
+        SwitchMenuState(MenuState.Main);
     }
 
     #region Main Canvas
@@ -27,7 +37,12 @@ public class MainMenuScript : MonoBehaviour
 
     public void ClickConfigure()
     {
-        ToggleMainCanvas(false);
+        SwitchMenuState(MenuState.Config);
+    }
+
+    public void ClickSettings()
+    {
+        SwitchMenuState(MenuState.Settings);
     }
     
     public void ClickQuit()
@@ -39,13 +54,34 @@ public class MainMenuScript : MonoBehaviour
 
     #region Utils
 
-    public void ToggleMainCanvas(bool toggle)
+    public void SwitchMenuState(MenuState state)
     {
-        _mainCam.SetActive(toggle);
-        _mainCanvas.SetActive(toggle);
+        _mainCam.SetActive(false);
+        _mainCanvas.SetActive(false);
         
-        _configCam.SetActive(!toggle);
-        _configCanvas.SetActive(!toggle);
+        _configCam.SetActive(false);
+        _configCanvas.SetActive(false);
+        
+        _settingsCam.SetActive(false);
+        _settingsCanvas.SetActive(false);
+        
+        switch (state)
+        {
+            case MenuState.Main:
+                _mainCam.SetActive(true);
+                _mainCanvas.SetActive(true);
+                break;
+            case MenuState.Config:
+                _configCam.SetActive(true);
+                _configCanvas.SetActive(true);
+                break;
+            case MenuState.Settings:
+                _settingsCam.SetActive(true);
+                _settingsCanvas.SetActive(true);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(state), state, null);
+        }
     }
 
     #endregion

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ConfigureMenu : MonoBehaviour
 {
+    [SerializeField] private MainMenuScript _mainMenuScript;
     [SerializeField] private float _rotateMultiplier;
     [SerializeField] private Transform _playerModel;
     [SerializeField] private PlayerSkinData _playerSkinData;
@@ -40,11 +41,14 @@ public class ConfigureMenu : MonoBehaviour
         _playerSkinData.HeadIndex = _hatsSelector.Index;
         _playerSkinData.MouthIndex = _mouthSelector.Index;
         _playerSkinData.TailIndex = _tailsSelector.Index;
+        
+        _mainMenuScript.SwitchMenuState(MainMenuScript.MenuState.Main);
     }
 
     public void ClickCancel()
     {
         _playerSkinSetter.SetSkin();
+        _mainMenuScript.SwitchMenuState(MainMenuScript.MenuState.Main);
     }
 
     public void ClickRotateRight()
