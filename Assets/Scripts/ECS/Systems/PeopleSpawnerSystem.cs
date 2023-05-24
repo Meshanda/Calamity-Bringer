@@ -7,6 +7,12 @@ using UnityEngine;
 
 public partial class PeopleSpawnerSystem : SystemBase
 {
+    protected override void OnCreate()
+    {
+        RequireForUpdate<PeopleSpawnerComponent>();
+        RequireForUpdate<RandomComponent>();
+    }
+    
     protected override void OnUpdate()
     {
         EntityQuery peopleEntityQuery = EntityManager.CreateEntityQuery(typeof(PeopleTag));

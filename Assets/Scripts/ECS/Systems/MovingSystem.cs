@@ -6,8 +6,15 @@ using Unity.Jobs;
 using Unity.Burst;
 
 [BurstCompile]
+
+[UpdateAfter(typeof(PeopleSpawnerSystem))]
 public partial struct MovingSystem : ISystem
 {
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<RandomComponent>();
+    }
+
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
