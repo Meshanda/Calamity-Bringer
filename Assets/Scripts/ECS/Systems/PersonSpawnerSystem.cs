@@ -24,14 +24,22 @@ public partial class PersonSpawnerSystem : SystemBase
             RefRW<RandomComponent> randomComponent = SystemAPI.GetSingletonRW<RandomComponent>();
             EntityCommandBuffer entityCommandBuffer = SystemAPI.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(World.Unmanaged);
 
-            Entity spawnedEntity = entityCommandBuffer.Instantiate(peopleSpawnerComponent.PlayerPrefab);
+            // Prefab
+            EntityQuery prefabQuery = EntityManager.CreateEntityQuery(typeof(PersonPrefab));
+            NativeArray<PersonPrefab> prefabs = prefabQuery.ToComponentDataArray<PersonPrefab>(Allocator.Persistent);
 
-            EntityQuery query = EntityManager.CreateEntityQuery(typeof(PersonZone));
-            NativeArray<PersonZone> spawnZones = query.ToComponentDataArray<PersonZone>(Allocator.Persistent);
+            int randomPrefabIndex = randomComponent.ValueRW.Random.NextInt(0, prefabs.Length);
+            Entity prefab = prefabs[randomPrefabIndex].Value;
+            Entity spawnedEntity = entityCommandBuffer.Instantiate(prefab);
+
+            // Spawn zone
+            EntityQuery spawnQuery = EntityManager.CreateEntityQuery(typeof(PersonZone));
+            NativeArray<PersonZone> spawnZones = spawnQuery.ToComponentDataArray<PersonZone>(Allocator.Persistent);
 
             int randomZoneIndex = randomComponent.ValueRW.Random.NextInt(0, spawnZones.Length);
             PersonZone zone = spawnZones[randomZoneIndex];
 
+            // Start position
             float3 startPosition = GetSpawnPosition(zone, randomComponent);
 
             // Set Start position

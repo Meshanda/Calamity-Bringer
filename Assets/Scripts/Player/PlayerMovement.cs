@@ -50,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("How high the character can jump")]
     [SerializeField] protected float JumpHeight;
     
-    private bool IsJumping = false;
+    private bool IsJumping;
 #endregion
 
 #region Rotation
@@ -75,16 +75,32 @@ public class PlayerMovement : MonoBehaviour
     private static readonly int Y = Animator.StringToHash("Y");
     private static readonly int Jump = Animator.StringToHash("Jump");
     private static readonly int Victory = Animator.StringToHash("Victory");
+    
     private bool _gameFinished;
+    private bool _gamePaused;
 
 
     private void OnEnable()
     {
         TimerSystem.TimerFinished += OnVictory;
+        PauseSystem.GamePaused += OnGamePaused;
+        GameManager.GameUnpaused += OnGameUnpaused;
     }
     private void OnDisable()
     {
         TimerSystem.TimerFinished -= OnVictory;
+        PauseSystem.GamePaused -= OnGamePaused;
+        GameManager.GameUnpaused -= OnGameUnpaused;
+    }
+
+    private void OnGameUnpaused()
+    {
+        _gamePaused = false;
+    }
+
+    private void OnGamePaused()
+    {
+        _gamePaused = true;
     }
 
     private void Awake()
@@ -97,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_gameFinished) return;
+        if (_gameFinished || _gamePaused) return;
         
         GravityField();
         Rotate();
@@ -174,7 +190,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnMove(InputValue value)
     {
-        if (_gameFinished) return;
+        if (_gameFinished || _gamePaused) return;
 
         Vector2 move = value.Get<Vector2>();
 		
@@ -186,7 +202,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnJump()
     {
-        if (!_grounded || _gameFinished) return;
+        if (!_grounded || _gameFinished || _gamePaused) return;
         
         IsJumping = true;
         //_verticalVelocity = (float)Math.Sqrt(Gravity * -2f * JumpHeight);

@@ -6,14 +6,14 @@ using UnityEngine.Events;
 public class TimerSystem : MonoBehaviour
 {
     [SerializeField] private FloatVariable _timerVariable;
-    [SerializeField] private float _timerMax;
+    [SerializeField] private FloatVariable _timerMaxVariable;
 
     public UnityEvent OnTimerReset;
     public static event Action TimerFinished;
 
     private void Start()
     {
-        _timerVariable.value = _timerMax;
+        _timerVariable.value = _timerMaxVariable.value;
         OnTimerReset.Invoke();
     }
 

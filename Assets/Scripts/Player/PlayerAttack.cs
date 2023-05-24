@@ -8,16 +8,31 @@ public class PlayerAttack : MonoBehaviour
     
     private bool _isAttacking;
     private bool _gameFinished;
+    private bool _gamePaused;
     public bool IsAttacking => _isAttacking;
 
     private void OnEnable()
     {
         TimerSystem.TimerFinished += OnTimerFinished;
+        PauseSystem.GamePaused += OnGamePaused;
+        GameManager.GameUnpaused += OnGameUnPaused;
     }
 
     private void OnDisable()
     {
         TimerSystem.TimerFinished -= OnTimerFinished;
+        PauseSystem.GamePaused -= OnGamePaused;
+        GameManager.GameUnpaused -= OnGameUnPaused;
+    }
+
+    private void OnGameUnPaused()
+    {
+        _gamePaused = false;
+    }
+
+    private void OnGamePaused()
+    {
+        _gamePaused = true;
     }
 
     private void OnTimerFinished()
@@ -32,7 +47,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void OnAttack()
     {
-        if (_isAttacking || _gameFinished) return;
+        if (_isAttacking || _gameFinished || _gamePaused) return;
 
         _animator.SetTrigger("Attack");
         _isAttacking = true;
