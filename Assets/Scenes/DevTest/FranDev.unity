@@ -478,6 +478,7 @@ GameObject:
   m_Component:
   - component: {fileID: 741381928}
   - component: {fileID: 741381927}
+  - component: {fileID: 741381929}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -516,6 +517,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &741381929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 741381926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7e326772c17f5d42a8288e01afed9b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildings: []
+  _collider: {fileID: 0}
 --- !u!1 &767042139
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,12 +647,12 @@ PrefabInstance:
     - target: {fileID: 2873439174019844569, guid: 6b440541fb9e1f64fb593f12534a129d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.0000038146973
+      value: -0.0000019073486
       objectReference: {fileID: 0}
     - target: {fileID: 2873439174019844569, guid: 6b440541fb9e1f64fb593f12534a129d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.0000023841858
+      value: 0.0000009536743
       objectReference: {fileID: 0}
     - target: {fileID: 2873439174019844569, guid: 6b440541fb9e1f64fb593f12534a129d,
         type: 3}

@@ -4,7 +4,7 @@ using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 
-public struct CapsuleTag : IComponentData
+public struct BuildingTag : IComponentData
 {
-    public bool _help;
+    public int index;
 }

@@ -14,29 +14,60 @@ public partial struct GetNumCollisionEventsSystem : ISystem
     public partial struct CountNumCollisionEvents : ICollisionEventsJob
     {
         public NativeReference<int> NumCollisionEvents;
+        public EntityCommandBuffer SpeciesCollisionBuffer;
+
         public void Execute(CollisionEvent collisionEvent)
         {
             NumCollisionEvents.Value++;
             var entityA = collisionEvent.EntityA;
             var entityB = collisionEvent.EntityB;
+            EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
-            try
-            {
-                ComponentLookup<CapsuleTag> look = new ComponentLookup<CapsuleTag>();
-                if (look.HasComponent(entityA) || look.HasComponent(entityB))
-                {
-                    Debug.Log($"A: {World.DefaultGameObjectInjectionWorld.EntityManager.GetName(entityA)}, B: {World.DefaultGameObjectInjectionWorld.EntityManager.GetName(entityB)}");
-                }
-            }
-            catch 
-            {
-                Debug.Log("osef");
-            }
+            CapsuleTag capTag;
+            BuildingTag buildTag;
             
+            //Debug.Log($"A: {World.DefaultGameObjectInjectionWorld.EntityManager.GetName(entityA)}" +
+            //           $", B: {World.DefaultGameObjectInjectionWorld.EntityManager.GetName(entityB)}");
+            //ComponentLookup<CapsuleTag> look = new ComponentLookup<CapsuleTag>();
+            //SystemAPI.GetComponent<CapsuleTag>(entityA);
+            
+            if ((entityManager.HasComponent<CapsuleTag>(entityA) && entityManager.HasComponent<BuildingTag>(entityB))
+                || (entityManager.HasComponent<CapsuleTag>(entityB) && (entityManager.HasComponent<BuildingTag>(entityA)) ))
+            {
+                //if (entityManager.HasComponent<CapsuleTag>(entityA))
+                //{
+                //    capTag = entityManager.GetComponentData<CapsuleTag>(entityA);
+                //}
+                //else
+                //{
+                //    capTag = entityManager.GetComponentData<CapsuleTag>(entityB);
+                //}
+
+                if (entityManager.HasComponent<BuildingTag>(entityA))
+                {
+                    //entityManager.AddComponent<ExplodeComponent>(entityB);
+                    //buildTag = entityManager.GetComponentData<BuildingTag>(entityA);
+                    SpeciesCollisionBuffer.AddComponent<ExplodeComponent>( entityA);
+                }
+                else
+                {
+                    //entityManager.AddComponent<ExplodeComponent>(entityB);
+                    //buildTag = entityManager.GetComponentData<BuildingTag>(entityB);
+                    SpeciesCollisionBuffer.AddComponent<ExplodeComponent>(entityB);
+                }
+                Debug.Log($"A: {World.DefaultGameObjectInjectionWorld.EntityManager.GetName(entityA)}" +
+                 $", B: {World.DefaultGameObjectInjectionWorld.EntityManager.GetName(entityB)} ");
+            }
+
             //CapsuleTag capsule = 
 
-            
+
         }
+
+        //public  void SetEntities(Entity A, Entity B,out CapsuleTag capTag,out BuildingTag buildTag) 
+        //{
+            
+        //}
 
         //public void Execute(TriggerEvent triggerEvent)
         //{
@@ -48,10 +79,13 @@ public partial struct GetNumCollisionEventsSystem : ISystem
     public void OnUpdate(ref SystemState state)
     {
         NativeReference<int> numCollisionEvents = new NativeReference<int>(0, Allocator.TempJob);
+        var beginInitBufferSystem = SystemAPI.GetSingleton<BeginInitializationEntityCommandBufferSystem.Singleton>();
+        //World.GetOrCreateSystemManaged<BeginInitializationEntityCommandBufferSystem>();
 
         var job = new CountNumCollisionEvents
         {
-            NumCollisionEvents = numCollisionEvents
+            NumCollisionEvents = numCollisionEvents,
+            SpeciesCollisionBuffer = beginInitBufferSystem.CreateCommandBuffer(state.WorldUnmanaged)
         };
 
         job.Schedule<CountNumCollisionEvents>(

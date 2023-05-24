@@ -6,7 +6,6 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class CapsuleTagAuthoring : MonoBehaviour
 {
-    public Transform player;
 }
 
 public class CapsuleTagBaker : Baker<CapsuleTagAuthoring>

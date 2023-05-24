@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-[RequireComponent(typeof(Collider))]
 public class DestroyBuilding : MonoBehaviour
 {
     [SerializeField] private float _force;
