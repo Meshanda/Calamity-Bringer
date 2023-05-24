@@ -12,6 +12,7 @@ using Unity.Collections;
 [UpdateAfter(typeof(PersonSpawnerSystem))]
 public partial struct MovingSystem : ISystem
 {
+    [BurstCompile]
     public void OnCreate(ref SystemState state)
     {
         state.RequireForUpdate<RandomComponent>();
