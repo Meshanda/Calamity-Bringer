@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Entities;
@@ -7,9 +8,11 @@ public class BuildIngTagAuthoring : MonoBehaviour
 {
      public static int index;
      public int trueIndex;
+     public List<GameObject> objects;
 
     public void Increment()
     {
+        gameObject.AddComponent<BoxCollider>();
         ColliderDestroyerSingleton.Instance.buildings.Add(this);
         trueIndex = index;
     }
@@ -21,9 +24,11 @@ public class BuildIngTagBaker : Baker<BuildIngTagAuthoring>
         var tombstoneEntity = GetEntity(TransformUsageFlags.Dynamic);
         AddComponent<BuildingTag>(tombstoneEntity, new BuildingTag
         {
-            index = BuildIngTagAuthoring.index,
-        });
+            index = BuildIngTagAuthoring.index
+        }) ;
         authoring.Increment();
         BuildIngTagAuthoring.index++;
     }
 }
+
+
