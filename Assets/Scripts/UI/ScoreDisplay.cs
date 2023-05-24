@@ -6,6 +6,7 @@ public class ScoreDisplay : MonoBehaviour
 {
     [SerializeField] private IntVariable score;
     [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private ParticleSystem particles;
 
     private void Start()
     {
@@ -17,6 +18,10 @@ public class ScoreDisplay : MonoBehaviour
 
     private void UpdateDisplay()
     {
+        if (particles is null)
+            return;
+
+        particles.Play();
         text.text = $"Score : {score.value}";
     }
 }
