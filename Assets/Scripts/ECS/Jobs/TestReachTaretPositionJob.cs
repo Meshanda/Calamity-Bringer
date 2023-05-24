@@ -5,14 +5,16 @@ using Unity.Entities;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Burst;
 using Unity.Mathematics;
+using Unity.Collections;
 
 [BurstCompile]
 public partial struct TestReachTaretPositionJob : IJobEntity
 {
-    public float3 Destination;
-    
+    [NativeDisableUnsafePtrRestriction] public RefRW<RandomComponent> RandomComponent;
+    public NativeArray<PersonZone> ZoneList; 
+
     public void Execute(MoveToPositionAspect moveToPositionAspect)
     {
-        moveToPositionAspect.TestReachedTargetPosition(Destination);
+        moveToPositionAspect.TestReachedTargetPosition(RandomComponent, ZoneList);
     }
 }

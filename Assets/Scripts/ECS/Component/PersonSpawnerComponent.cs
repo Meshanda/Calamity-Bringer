@@ -4,7 +4,7 @@ using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 
-public struct PeopleSpawnerComponent : IComponentData
+public struct PersonSpawnerComponent : IComponentData
 {
     public float PeopleMinSpeed;
     public float PeopleMaxSpeed;

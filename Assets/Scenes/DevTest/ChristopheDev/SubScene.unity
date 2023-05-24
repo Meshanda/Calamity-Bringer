@@ -171,56 +171,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PeopleMinSpeed: 10
   PeopleMaxSpeed: 50
-  MaxNbPeople: 5000
+  MaxNbPeople: 100
   PlayerPrefab: {fileID: 1855904770375235841, guid: 7ad2b07983313904d80d30305caa434e,
     type: 3}
---- !u!1 &471573336
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 471573337}
-  - component: {fileID: 471573338}
-  m_Layer: 0
-  m_Name: Zone (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &471573337
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 471573336}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -59.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1590101476}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &471573338
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 471573336}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfe0e607db00a054e8bde1c20190447f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SizeXZone: 39.5
-  SizeZZone: 43.9
-  GizmosColor: {r: 0, g: 0.16754031, b: 1, a: 1}
 --- !u!1 &848932500
 GameObject:
   m_ObjectHideFlags: 0
@@ -265,56 +218,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23675e343ca012e459ddcc1f847a50dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SizeXZone: 50
+  SizeXZone: 100
   SizeZZone: 50
-  GizmosColor: {r: 0, g: 1, b: 0, a: 1}
---- !u!1 &890503539
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 890503540}
-  - component: {fileID: 890503541}
-  m_Layer: 0
-  m_Name: Zone
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &890503540
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 890503539}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 15}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1590101476}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &890503541
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 890503539}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfe0e607db00a054e8bde1c20190447f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SizeXZone: 50
-  SizeZZone: 42.9
-  GizmosColor: {r: 0, g: 0.16754031, b: 1, a: 1}
+  GizmosColor: {r: 1, g: 0.9986277, b: 0, a: 1}
 --- !u!1 &1345981793
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,39 +264,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1590101475
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1590101476}
-  m_Layer: 0
-  m_Name: MovementZone
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1590101476
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1590101475}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 890503540}
-  - {fileID: 471573337}
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1709136508
 GameObject:
@@ -436,6 +309,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23675e343ca012e459ddcc1f847a50dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SizeXZone: 50
+  SizeXZone: 100
   SizeZZone: 50
   GizmosColor: {r: 0, g: 1, b: 0, a: 1}

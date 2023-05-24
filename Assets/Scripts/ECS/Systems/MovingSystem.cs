@@ -5,10 +5,11 @@ using Unity.Entities;
 using Unity.Jobs;
 using Unity.Burst;
 using Unity.Mathematics;
+using Unity.Collections;
 
 [BurstCompile]
 
-[UpdateAfter(typeof(PeopleSpawnerSystem))]
+[UpdateAfter(typeof(PersonSpawnerSystem))]
 public partial struct MovingSystem : ISystem
 {
     public void OnCreate(ref SystemState state)
@@ -29,27 +30,13 @@ public partial struct MovingSystem : ISystem
 
         jobHandle.Complete();
 
+        EntityQuery peopleEntityQuery = World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntityQuery(typeof(PersonZone));
+        NativeArray<PersonZone> movementZones = peopleEntityQuery.ToComponentDataArray<PersonZone>(Allocator.Persistent);
+
         new TestReachTaretPositionJob
         {
-            Destination = GetDestinationPosition(state, randomComponent)
+            RandomComponent = randomComponent,
+            ZoneList = movementZones
         }.Run();
-    }
-
-    private float3 GetDestinationPosition(SystemState state, RefRW<RandomComponent> randomComponent)
-    {
-        List<PersonMovementZone> movementZones = new List<PersonMovementZone>();
-        foreach (var item in SystemAPI.Query<PersonMovementZone>())
-        {
-            movementZones.Add(item);
-        }
-
-        int randomZone = randomComponent.ValueRW.Random.NextInt(0, movementZones.Count);
-        PersonMovementZone movementZone = movementZones[randomZone];
-
-        float startPosX = randomComponent.ValueRW.Random.NextFloat(movementZone.SpawnCenterZone.x - (movementZone.SizeXZone / 2), movementZone.SpawnCenterZone.x + (movementZone.SizeXZone / 2));
-        float startPosZ = randomComponent.ValueRW.Random.NextFloat(movementZone.SpawnCenterZone.z - (movementZone.SizeZZone / 2), movementZone.SpawnCenterZone.z + (movementZone.SizeZZone / 2));
-
-        return new float3(startPosX, 0, startPosZ);
-
     }
 }

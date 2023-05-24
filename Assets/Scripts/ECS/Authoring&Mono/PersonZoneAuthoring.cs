@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
 
-public class PeopleMovementZoneAuthoring : MonoBehaviour
+public class PersonZoneAuthoring : MonoBehaviour
 {
     public float SizeXZone;
     public float SizeZZone;
@@ -17,12 +17,12 @@ public class PeopleMovementZoneAuthoring : MonoBehaviour
     }
 }
 
-public class PeopleMovementZoneBaker : Baker<PeopleMovementZoneAuthoring>
+public class PersonZoneBaker : Baker<PersonZoneAuthoring>
 {
-    public override void Bake(PeopleMovementZoneAuthoring authoring)
+    public override void Bake(PersonZoneAuthoring authoring)
     {
         var entity = GetEntity(TransformUsageFlags.Dynamic);
-        AddComponent(entity, new PersonMovementZone
+        AddComponent(entity, new PersonZone
         {
             SpawnCenterZone = authoring.transform.position,
             SizeXZone = authoring.SizeXZone,

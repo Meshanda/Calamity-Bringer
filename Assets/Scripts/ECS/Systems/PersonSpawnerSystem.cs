@@ -1,22 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
 
-public partial class PeopleSpawnerSystem : SystemBase
+public partial class PersonSpawnerSystem : SystemBase
 {
     protected override void OnCreate()
     {
-        RequireForUpdate<PeopleSpawnerComponent>();
+        RequireForUpdate<PersonSpawnerComponent>();
         RequireForUpdate<RandomComponent>();
     }
     
     protected override void OnUpdate()
     {
         EntityQuery peopleEntityQuery = EntityManager.CreateEntityQuery(typeof(PeopleTag));
-        PeopleSpawnerComponent peopleSpawnerComponent = SystemAPI.GetSingleton<PeopleSpawnerComponent>();
+        PersonSpawnerComponent peopleSpawnerComponent = SystemAPI.GetSingleton<PersonSpawnerComponent>();
 
         if (peopleEntityQuery.CalculateEntityCount() < peopleSpawnerComponent.MaxNbPeople)
         {
@@ -25,7 +26,13 @@ public partial class PeopleSpawnerSystem : SystemBase
 
             Entity spawnedEntity = entityCommandBuffer.Instantiate(peopleSpawnerComponent.PlayerPrefab);
 
-            float3 startPosition = GetSpawnPosition(randomComponent);
+            EntityQuery query = EntityManager.CreateEntityQuery(typeof(PersonZone));
+            NativeArray<PersonZone> spawnZones = query.ToComponentDataArray<PersonZone>(Allocator.Persistent);
+
+            int randomZoneIndex = randomComponent.ValueRW.Random.NextInt(0, spawnZones.Length);
+            PersonZone zone = spawnZones[randomZoneIndex];
+
+            float3 startPosition = GetSpawnPosition(zone, randomComponent);
 
             // Set Start position
             entityCommandBuffer.SetComponent(spawnedEntity, new LocalTransform
@@ -45,23 +52,20 @@ public partial class PeopleSpawnerSystem : SystemBase
             entityCommandBuffer.SetComponent(spawnedEntity, new TargetPosition
             {
                 Value = startPosition + new float3(0.1f, 0, 0.1f)
-            });          
+            });
+
+            // Set the zone in which it should stay
+            entityCommandBuffer.SetComponent(spawnedEntity, new MovementZoneIndex
+            {
+                MovementIndex = randomZoneIndex
+            });                         
         }
     }
 
-    private float3 GetSpawnPosition(RefRW<RandomComponent> randomComponent)
+    private float3 GetSpawnPosition(PersonZone zone, RefRW<RandomComponent> randomComponent)
     {
-        List<PersonSpawnZone> spawnZones = new List<PersonSpawnZone>();
-        foreach (var item in SystemAPI.Query<PersonSpawnZone>())
-        {
-            spawnZones.Add(item);
-        }
-
-        int randomZone = randomComponent.ValueRW.Random.NextInt(0, spawnZones.Count);
-        PersonSpawnZone spawnZone = spawnZones[randomZone];
-
-        float startPosX = randomComponent.ValueRW.Random.NextFloat(spawnZone.SpawnCenterZone.x - (spawnZone.SizeXZone / 2), spawnZone.SpawnCenterZone.x + (spawnZone.SizeXZone / 2));
-        float startPosZ = randomComponent.ValueRW.Random.NextFloat(spawnZone.SpawnCenterZone.z - (spawnZone.SizeZZone / 2), spawnZone.SpawnCenterZone.z + (spawnZone.SizeZZone / 2));
+        float startPosX = randomComponent.ValueRW.Random.NextFloat(zone.SpawnCenterZone.x - (zone.SizeXZone / 2), zone.SpawnCenterZone.x + (zone.SizeXZone / 2));
+        float startPosZ = randomComponent.ValueRW.Random.NextFloat(zone.SpawnCenterZone.z - (zone.SizeZZone / 2), zone.SpawnCenterZone.z + (zone.SizeZZone / 2));
 
         return new float3(startPosX, 0, startPosZ);
     }

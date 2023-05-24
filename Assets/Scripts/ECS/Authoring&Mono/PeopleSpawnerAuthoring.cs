@@ -18,7 +18,7 @@ public class PeopleSpawnerBaker : Baker<PeopleSpawnerAuthoring>
     {
         var entity = GetEntity(TransformUsageFlags.Dynamic);
 
-        AddComponent(entity, new PeopleSpawnerComponent
+        AddComponent(entity, new PersonSpawnerComponent
         {
             PeopleMinSpeed = authoring.PeopleMinSpeed,
             PeopleMaxSpeed = authoring.PeopleMaxSpeed,
