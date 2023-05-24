@@ -88,6 +88,7 @@ public class GameManager : MonoBehaviour
         GameUnpaused?.Invoke();
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
+        
         _pauseCanvas.SetActive(false);
         _hudCanvas.SetActive(true);
     }
