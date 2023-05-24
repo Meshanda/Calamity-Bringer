@@ -70,7 +70,22 @@ public class PlayerMovement : MonoBehaviour
     private GameObject _mainCamera;
     [SerializeField] private Animator _animator;
     [SerializeField] private bool _drawGizmos;
+    
+    private static readonly int X = Animator.StringToHash("X");
+    private static readonly int Y = Animator.StringToHash("Y");
+    private static readonly int Jump = Animator.StringToHash("Jump");
+    private static readonly int Victory = Animator.StringToHash("Victory");
+    private bool _gameFinished;
 
+
+    private void OnEnable()
+    {
+        TimerSystem.TimerFinished += OnVictory;
+    }
+    private void OnDisable()
+    {
+        TimerSystem.TimerFinished -= OnVictory;
+    }
 
     private void Awake()
     {
@@ -82,6 +97,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (_gameFinished) return;
+        
         GravityField();
         Rotate();
         Move();
@@ -157,18 +174,31 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnMove(InputValue value)
     {
+        if (_gameFinished) return;
+
         Vector2 move = value.Get<Vector2>();
 		
         _horizontalAxis = new Vector3(move.x, 0, move.y);
 
+        _animator.SetFloat(X, move.x);
+        _animator.SetFloat(Y, move.y);
     }
 
     public void OnJump()
     {
-        if (!_grounded) return;
-
+        if (!_grounded || _gameFinished) return;
+        
         IsJumping = true;
-        _verticalVelocity = (float)Math.Sqrt(Gravity * -2f * JumpHeight);
+        //_verticalVelocity = (float)Math.Sqrt(Gravity * -2f * JumpHeight);
+        
+        _animator.SetTrigger(Jump);
+    }
+
+    private void OnVictory()
+    {
+        _gameFinished = true;
+            
+        _animator.SetTrigger(Victory);
     }
 
     #endregion

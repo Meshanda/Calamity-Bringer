@@ -19,6 +19,9 @@ public class TimerSystem : MonoBehaviour
         _timerVariable.value -= Time.deltaTime;
 
         if (_timerVariable.value <= 0)
+        {
             TimerFinished?.Invoke();
+            Destroy(this);
+        }
     }
 }

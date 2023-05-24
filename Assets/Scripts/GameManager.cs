@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using ScriptableObjects.Variables;
 using UnityEngine.Events;
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private IntVariable score;
     [HideInInspector] public UnityEvent OnScoreUpdate;
+    [SerializeField] private List<GameObject> _objectToDisableOnVictory;
 
     private void OnEnable()
     {
@@ -47,7 +49,9 @@ public class GameManager : MonoBehaviour
     
     private void OnTimerFinished()
     {
-        SceneManager.LoadSceneAsync(SceneReferences.END_SCENE, LoadSceneMode.Single)
+        _objectToDisableOnVictory.ForEach(o => o.SetActive(false));
+        
+        SceneManager.LoadSceneAsync(SceneReferences.END_SCENE, LoadSceneMode.Additive)
             .completed += _ => Cursor.lockState = CursorLockMode.None;
     }
 }
