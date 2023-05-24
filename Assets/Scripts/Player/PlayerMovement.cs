@@ -50,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("How high the character can jump")]
     [SerializeField] protected float JumpHeight;
     
-    private bool IsJumping = false;
+    private bool IsJumping;
 #endregion
 
 #region Rotation
