@@ -6,10 +6,6 @@ using UnityEngine;
 
 public struct PeopleSpawnerComponent : IComponentData
 {
-    public float3 SpawnCenterZone;
-    public float SizeXZone;
-    public float SizeZZone;
-
     public float PeopleMinSpeed;
     public float PeopleMaxSpeed;
 

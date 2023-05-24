@@ -11,26 +11,20 @@ public partial class PeopleSpawnerSystem : SystemBase
     {
         EntityQuery peopleEntityQuery = EntityManager.CreateEntityQuery(typeof(PeopleTag));
         PeopleSpawnerComponent peopleSpawnerComponent = SystemAPI.GetSingleton<PeopleSpawnerComponent>();
-        RefRW<RandomComponent> randomComponent = SystemAPI.GetSingletonRW<RandomComponent>();
-
-        EntityCommandBuffer entityCommandBuffer = SystemAPI.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(World.Unmanaged);
 
         if (peopleEntityQuery.CalculateEntityCount() < peopleSpawnerComponent.MaxNbPeople)
         {
+            RefRW<RandomComponent> randomComponent = SystemAPI.GetSingletonRW<RandomComponent>();
+            EntityCommandBuffer entityCommandBuffer = SystemAPI.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(World.Unmanaged);
+
             Entity spawnedEntity = entityCommandBuffer.Instantiate(peopleSpawnerComponent.PlayerPrefab);
 
-            float3 startPos = new float3(
-                randomComponent.ValueRW.Random.NextFloat(peopleSpawnerComponent.SpawnCenterZone.x - (peopleSpawnerComponent.SizeXZone / 2),
-                                                         peopleSpawnerComponent.SpawnCenterZone.x + (peopleSpawnerComponent.SizeXZone / 2)),
-                0,
-                randomComponent.ValueRW.Random.NextFloat(peopleSpawnerComponent.SpawnCenterZone.z - (peopleSpawnerComponent.SizeZZone / 2),
-                                                         peopleSpawnerComponent.SpawnCenterZone.z + (peopleSpawnerComponent.SizeZZone / 2))
-            );
+            float3 startPosition = GetSpawnPosition(randomComponent);
 
             // Set Start position
             entityCommandBuffer.SetComponent(spawnedEntity, new LocalTransform
             {
-                Position = startPos,
+                Position = startPosition,
                 Rotation = quaternion.identity,
                 Scale = 1
             });
@@ -40,17 +34,29 @@ public partial class PeopleSpawnerSystem : SystemBase
             {
                 Value = randomComponent.ValueRW.Random.NextFloat(peopleSpawnerComponent.PeopleMinSpeed, peopleSpawnerComponent.PeopleMaxSpeed)
             });
-
-            
+          
             // Change destination
             entityCommandBuffer.SetComponent(spawnedEntity, new TargetPosition
             {
-                Value = new float3(
-                                    randomComponent.ValueRW.Random.NextFloat(-500f, 500f),
-                                    0,
-                                    randomComponent.ValueRW.Random.NextFloat(-200f, 200f))
-            });
-            
+                Value = startPosition + new float3(0.1f, 0, 0.1f)
+            });          
         }
+    }
+
+    private float3 GetSpawnPosition(RefRW<RandomComponent> randomComponent)
+    {
+        List<PersonSpawnZone> spawnZones = new List<PersonSpawnZone>();
+        foreach (var item in SystemAPI.Query<PersonSpawnZone>())
+        {
+            spawnZones.Add(item);
+        }
+
+        int randomZone = randomComponent.ValueRW.Random.NextInt(0, spawnZones.Count);
+        PersonSpawnZone spawnZone = spawnZones[randomZone];
+
+        float startPosX = randomComponent.ValueRW.Random.NextFloat(spawnZone.SpawnCenterZone.x - (spawnZone.SizeXZone / 2), spawnZone.SpawnCenterZone.x + (spawnZone.SizeXZone / 2));
+        float startPosZ = randomComponent.ValueRW.Random.NextFloat(spawnZone.SpawnCenterZone.z - (spawnZone.SizeZZone / 2), spawnZone.SpawnCenterZone.z + (spawnZone.SizeZZone / 2));
+
+        return new float3(startPosX, 0, startPosZ);
     }
 }

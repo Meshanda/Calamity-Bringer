@@ -4,14 +4,15 @@ using UnityEngine;
 using Unity.Entities;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Burst;
+using Unity.Mathematics;
 
 [BurstCompile]
 public partial struct TestReachTaretPositionJob : IJobEntity
 {
-    [NativeDisableUnsafePtrRestriction] public RefRW<RandomComponent> RandomComponent;
+    public float3 Destination;
     
     public void Execute(MoveToPositionAspect moveToPositionAspect)
     {
-        moveToPositionAspect.TestReachedTargetPosition(RandomComponent);
+        moveToPositionAspect.TestReachedTargetPosition(Destination);
     }
 }
