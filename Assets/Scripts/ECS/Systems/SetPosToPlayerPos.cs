@@ -26,9 +26,6 @@ public partial struct SetPosToPlayerPosSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        var deltaTime = SystemAPI.Time.DeltaTime;
-        var ecbSingleton = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>();
-        var capsuleEntity = SystemAPI.GetSingletonEntity<CapsuleTag>();
         var posTemp = GetCapsuleEntity.Instance.transform.position;
         var quatTemp = GetCapsuleEntity.Instance.transform.rotation;
 
@@ -53,7 +50,7 @@ public partial struct ZombieWalkJob : IJobEntity
     public quaternion quat;
     public bool activated;
     [BurstCompile]
-    private void Execute(CapsuleAspect cap, [EntityIndexInQuery] int sortKey)
+    private void Execute(CapsuleAspect cap)
     {
         cap.SetPos(pos, quaternion.identity, activated);
     }

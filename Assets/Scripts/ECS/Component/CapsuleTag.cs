@@ -6,5 +6,5 @@ using UnityEngine;
 
 public struct CapsuleTag : IComponentData
 {
-    public bool _help;
+    
 }

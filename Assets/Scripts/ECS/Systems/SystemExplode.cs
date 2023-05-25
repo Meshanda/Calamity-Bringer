@@ -16,8 +16,6 @@ public partial struct SystemExplode : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        var ecbSingleton = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>();
-
         List<Entity> list = new List<Entity>(); 
         List<Entity> listEntity = new List<Entity>(); 
         EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
@@ -67,7 +65,7 @@ public partial struct ExplodeJob : IJobEntity
     public EntityCommandBuffer SpeciesCollisionBuffer;
     public Entity cap;
     [BurstCompile]
-    private void Execute( [EntityIndexInQuery] int sortKey)
+    private void Execute()
     {
         EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         if (!entityManager.HasComponent<BuildingTag>(cap))

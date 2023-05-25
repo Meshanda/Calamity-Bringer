@@ -39,5 +39,7 @@ public partial struct MovingSystem : ISystem
             RandomComponent = randomComponent,
             ZoneList = movementZones
         }.Run();
+
+        movementZones.Dispose();
     }
 }
