@@ -285,6 +285,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caaa35941bd6d6f4ea1a94dddcf9d27a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  score: {fileID: 11400000, guid: b1f7afd6448b1da42a05bdb69ba7b68d, type: 2}
+  OnScoreUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  _objectToDisableOnVictory: []
 --- !u!1 &658562376
 GameObject:
   m_ObjectHideFlags: 0
@@ -581,7 +586,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1319316499
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -767,7 +772,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1768953868
 Transform:
   m_ObjectHideFlags: 0
@@ -1066,6 +1071,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432932704092428055, guid: 133bb8749fd22a34f9c0e12fd8a4a9d9,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432932704092428055, guid: 133bb8749fd22a34f9c0e12fd8a4a9d9,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432932704092428055, guid: 133bb8749fd22a34f9c0e12fd8a4a9d9,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -23.430054
       objectReference: {fileID: 0}
     - target: {fileID: 6755645171672122204, guid: 133bb8749fd22a34f9c0e12fd8a4a9d9,
         type: 3}

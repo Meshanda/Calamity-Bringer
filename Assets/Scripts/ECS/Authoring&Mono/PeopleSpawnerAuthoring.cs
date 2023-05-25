@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
 
 public class PeopleSpawnerAuthoring : MonoBehaviour
 {
+    public float PeopleMinSpeed;
+    public float PeopleMaxSpeed;
     public int MaxNbPeople;
-    public GameObject PlayerPrefab;
 }
 
 public class PeopleSpawnerBaker : Baker<PeopleSpawnerAuthoring>
@@ -15,10 +17,12 @@ public class PeopleSpawnerBaker : Baker<PeopleSpawnerAuthoring>
     {
         var entity = GetEntity(TransformUsageFlags.Dynamic);
 
-        AddComponent(entity, new PeopleSpawnerComponent
+        AddComponent(entity, new PersonSpawnerComponent
         {
+            PeopleMinSpeed = authoring.PeopleMinSpeed,
+            PeopleMaxSpeed = authoring.PeopleMaxSpeed,
+
             MaxNbPeople = authoring.MaxNbPeople,
-            PlayerPrefab = GetEntity(authoring.PlayerPrefab, TransformUsageFlags.Dynamic)
         });
     }
 }

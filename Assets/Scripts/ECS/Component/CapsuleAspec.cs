@@ -22,6 +22,6 @@ public readonly partial struct CapsuleAspect : IAspect
             return;
         }
         _transform.ValueRW.Position = pos;
-        _transform.ValueRW.Rotate(quat);
+        _transform.ValueRW.Rotation = quaternion.identity;
     }
 }

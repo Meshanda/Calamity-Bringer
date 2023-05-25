@@ -35,6 +35,7 @@ public class DestroyBuilding : MonoBehaviour
         foreach(var child in childs) 
         {
             child.isTrigger = false;
+            child.enabled = true;
             if (child.gameObject.TryGetComponent(out MovementDebris movDebris))
                 movDebris.GravityMultiplier = _childGravityMultiplier;
         }
