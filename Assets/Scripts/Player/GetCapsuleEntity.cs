@@ -17,9 +17,4 @@ public  class GetCapsuleEntity : MonoBehaviour
         else
             Destroy(this);
     }
-
-    private void OnDisable()
-    {
-        Instance = null;
-    }
 }

@@ -20,6 +20,8 @@ public class ScoreDisplay : MonoBehaviour
     {
         text.text = $"Score : {score.value}";
 
-        particles?.Play();
+        if (particles is null) return;
+        
+        particles.Play();
     }
 }
