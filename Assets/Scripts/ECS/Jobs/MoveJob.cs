@@ -9,8 +9,8 @@ public partial struct MoveJob : IJobEntity
 {
     public float DeltaTime;
 
-    public void Execute(MoveToPositionAspect moveToPositionAspect)
+    public void Execute(PersonAspect personAspect)
     {
-        moveToPositionAspect.Move(DeltaTime);
+        personAspect.Move(DeltaTime);
     }
 }
