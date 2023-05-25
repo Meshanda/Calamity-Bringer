@@ -35,5 +35,6 @@ public class MovementDebris : MonoBehaviour
         
         Destroy(this);
         Destroy(_bc);
+        Destroy(_rb);
     }
 }
