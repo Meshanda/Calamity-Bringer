@@ -29,15 +29,17 @@ public class MusicManager : GenericSingleton<MusicManager>
         UpdateVolume();
     }
 
-    public void ChangeMusic(AudioChannel channel, AudioClip clip)
+    public void PutSound(AudioChannel channel, AudioClip clip)
     {
         switch (channel)
         {
             case AudioChannel.Music:
                 _musicSource.clip = clip;
+                _musicSource.Play();
                 break;
             case AudioChannel.Sound:
                 _soundSource.clip = clip;
+                _soundSource.Play();
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(channel), channel, null);

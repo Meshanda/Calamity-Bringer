@@ -13,6 +13,8 @@ public partial struct PeopleSmashSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
+        if (PlayerSingleton.Instance is null) return;
+        
         float3 playerPosition = PlayerSingleton.Instance.transform.position;
         EntityCommandBuffer entityCommandBuffer = SystemAPI.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(state.WorldUnmanaged);
 

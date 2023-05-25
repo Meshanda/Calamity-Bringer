@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
@@ -17,4 +18,8 @@ public  class GetCapsuleEntity : MonoBehaviour
             Destroy(this);
     }
 
+    private void OnDisable()
+    {
+        Instance = null;
+    }
 }
