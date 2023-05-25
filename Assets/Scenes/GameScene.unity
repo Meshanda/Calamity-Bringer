@@ -617,7 +617,7 @@ MonoBehaviour:
   _hudCanvas: {fileID: 1768886408}
   _gameMusic: {fileID: 8300000, guid: 21107e6761af3494382fa23c54bc4878, type: 3}
   _pauseMusic: {fileID: 8300000, guid: e3e2bc141dc48244c8cfd115ee218318, type: 3}
-  _destroyedBuildingSound: {fileID: 8300000, guid: 71f3f17c6947b73469923e8aea169794,
+  _destroyedBuildingSound: {fileID: 8300000, guid: 40ee2883a288abf4daa0c58428255231,
     type: 3}
 --- !u!114 &1257075536
 MonoBehaviour:
@@ -1468,7 +1468,7 @@ PrefabInstance:
     - target: {fileID: 2873439174019844569, guid: 6b440541fb9e1f64fb593f12534a129d,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0085410625
+      value: 0.008541064
       objectReference: {fileID: 0}
     - target: {fileID: 2895455019198902313, guid: 6b440541fb9e1f64fb593f12534a129d,
         type: 3}
