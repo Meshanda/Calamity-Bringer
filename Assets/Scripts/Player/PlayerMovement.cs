@@ -44,13 +44,7 @@ public class PlayerMovement : MonoBehaviour
 #endregion
     
 #region Jump
-    [Space(5)]
-    [Header("JumpField")]
-
-    [Tooltip("How high the character can jump")]
-    [SerializeField] protected float JumpHeight;
     
-    private bool IsJumping;
 #endregion
 
 #region Rotation
@@ -175,7 +169,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 _verticalVelocity = -1f;
             }
-            IsJumping = false;
         }
         else
         {
@@ -203,9 +196,6 @@ public class PlayerMovement : MonoBehaviour
     public void OnJump()
     {
         if (!_grounded || _gameFinished || _gamePaused) return;
-        
-        IsJumping = true;
-        //_verticalVelocity = (float)Math.Sqrt(Gravity * -2f * JumpHeight);
         
         _animator.SetTrigger(Jump);
     }
