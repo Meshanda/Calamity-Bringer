@@ -11,6 +11,7 @@ public class ExplodeTagBaker : Baker<ExplodeAuthoring>
     public override void Bake(ExplodeAuthoring authoring)
     {
         var Entity = GetEntity(TransformUsageFlags.Dynamic);
-        AddComponent<ExplodeAuthoring>(Entity);
+        AddComponent<ExplodeComponent>(Entity);
+        SetComponentEnabled<ExplodeComponent>(Entity, false);
     }
 }

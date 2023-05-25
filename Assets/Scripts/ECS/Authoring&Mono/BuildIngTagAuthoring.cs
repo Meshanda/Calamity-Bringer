@@ -12,7 +12,8 @@ public class BuildIngTagAuthoring : MonoBehaviour
 
     public void Increment()
     {
-        gameObject.AddComponent<BoxCollider>();
+        if (gameObject.GetComponent<BoxCollider>() == null)
+            gameObject.AddComponent<BoxCollider>();
         ColliderDestroyerSingleton.Instance.buildings.Add(this);
         trueIndex = index;
     }

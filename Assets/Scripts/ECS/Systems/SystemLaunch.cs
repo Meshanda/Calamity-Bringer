@@ -22,7 +22,7 @@ public partial struct SystemLaunch : ISystem
         new Launch
         {
             pos = originExpl
-        }.Schedule();
+        }.ScheduleParallel();
     }
 }
 [BurstCompile]
@@ -33,7 +33,6 @@ public partial struct Launch : IJobEntity
     [BurstCompile]
     private void Execute(DebrisAscpect cap, [EntityIndexInQuery] int sortKey)
     {
-        Debug.Log("job execute");
         cap.Launch(pos);
     }
 }

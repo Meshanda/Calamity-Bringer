@@ -18,36 +18,46 @@ public partial struct SystemExplode : ISystem
     {
         var ecbSingleton = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>();
 
-        Entity expl ;
-        if (!SystemAPI.TryGetSingletonEntity<ExplodeComponent>(out expl))
-            return;
-        var beginInitBufferSystem = SystemAPI.GetSingleton<BeginInitializationEntityCommandBufferSystem.Singleton>();
+        List<Entity> list = new List<Entity>(); 
+        List<Entity> listEntity = new List<Entity>(); 
         EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-        if (entityManager.HasComponent<BuildingTag>(expl)) 
-        {
-            var tag = entityManager.GetComponentData<BuildingTag>(expl);
-            
-            ColliderDestroyerSingleton.Instance.DestroyCollider(tag.index);
-        }
-        var buffer = entityManager.GetBuffer<LinkedEntityGroup>(expl).ToNativeArray(Unity.Collections.Allocator.FirstUserIndex);
 
-        foreach (LinkedEntityGroup entity in buffer)
+        var beginInitBufferSystem = SystemAPI.GetSingleton<BeginInitializationEntityCommandBufferSystem.Singleton>();
+
+        foreach (var (_, entity) in SystemAPI.Query<ExplodeComponent>().WithEntityAccess())
         {
-            if (!entityManager.HasComponent<BuildingTag>(entity.Value))
+           
+            if (entityManager.HasComponent<BuildingTag>(entity))
             {
-                entityManager.AddComponent<DebrisExplosion>(entity.Value);
-                Debug.Log(entityManager.HasComponent<DebrisExplosion>(entity.Value));
+                var tag = entityManager.GetComponentData<BuildingTag>(entity);
+                ColliderDestroyerSingleton.Instance.DestroyCollider(tag.index);
             }
-            //Debug.Log($"A: {World.DefaultGameObjectInjectionWorld.EntityManager.GetName(entity.Value)}");
+            var buffer = entityManager.GetBuffer<LinkedEntityGroup>(entity).ToNativeArray(Unity.Collections.Allocator.FirstUserIndex);
 
+            foreach (LinkedEntityGroup child in buffer)
+            {
+                if (!entityManager.HasComponent<BuildingTag>(child.Value))
+                {
+                    list.Add(child.Value);
+                }
+                else
+                    listEntity.Add(child.Value);
+
+            }
+            new ExplodeJob
+            {
+                cap = entity,
+                SpeciesCollisionBuffer = beginInitBufferSystem.CreateCommandBuffer(state.WorldUnmanaged)
+            }.Schedule(state.Dependency).Complete();
         }
-        new ExplodeJob
-        {
-            SpeciesCollisionBuffer = beginInitBufferSystem.CreateCommandBuffer(state.WorldUnmanaged)
-        }.Schedule();
-        state.Dependency.Complete();
 
-        
+        foreach (var child in list)
+        {
+            entityManager.AddComponent<DebrisExplosion>(child);
+        }
+
+
+
     }
 }
 
@@ -55,8 +65,9 @@ public partial struct SystemExplode : ISystem
 public partial struct ExplodeJob : IJobEntity
 {
     public EntityCommandBuffer SpeciesCollisionBuffer;
+    public Entity cap;
     [BurstCompile]
-    private void Execute(Entity cap, [EntityIndexInQuery] int sortKey)
+    private void Execute( [EntityIndexInQuery] int sortKey)
     {
         EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         if (!entityManager.HasComponent<BuildingTag>(cap))
@@ -68,7 +79,7 @@ public partial struct ExplodeJob : IJobEntity
         //SpeciesCollisionBuffer.DestroyEntity(cap);
         SpeciesCollisionBuffer.RemoveComponent<PhysicsCollider>(cap);
         SpeciesCollisionBuffer.RemoveComponent<PhysicsMass>(cap);
-        SpeciesCollisionBuffer.RemoveComponent<ExplodeComponent>(cap);
-        
+        entityManager.SetComponentEnabled<ExplodeComponent>(cap, false);
+
     }
 }

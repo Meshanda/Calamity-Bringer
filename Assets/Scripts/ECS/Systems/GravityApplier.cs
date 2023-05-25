@@ -14,7 +14,7 @@ public partial struct  GravityApplier : ISystem
         new ApplyGravity
         {
             DeltaTime = deltatTime
-        }.Schedule();
+        }.ScheduleParallel();
     }
 }
 [BurstCompile]
