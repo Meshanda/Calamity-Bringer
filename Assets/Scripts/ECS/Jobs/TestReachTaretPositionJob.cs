@@ -13,8 +13,8 @@ public partial struct TestReachTaretPositionJob : IJobEntity
     [NativeDisableUnsafePtrRestriction] public RefRW<RandomComponent> RandomComponent;
     public NativeArray<PersonZone> ZoneList; 
 
-    public void Execute(MoveToPositionAspect moveToPositionAspect)
+    public void Execute(PersonAspect personAspect)
     {
-        moveToPositionAspect.TestReachedTargetPosition(RandomComponent, ZoneList);
+        personAspect.TestReachedTargetPosition(RandomComponent, ZoneList);
     }
 }

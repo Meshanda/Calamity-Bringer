@@ -6,7 +6,7 @@ using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
 
-public readonly partial struct MoveToPositionAspect : IAspect
+public readonly partial struct PersonAspect : IAspect
 {
     private readonly Entity _entity;
 
@@ -31,6 +31,16 @@ public readonly partial struct MoveToPositionAspect : IAspect
         {
             _targetPosition.ValueRW.Value = GetDestinationPosition(randomComponent, zoneList);
         }
+    }
+
+    public float3 GetAspectPosition()
+    {
+        return _transform.ValueRO.Position;
+    }
+
+    public Entity GetAspectEntity()
+    {
+        return _entity;
     }
 
     private float3 GetDestinationPosition(RefRW<RandomComponent> randomComponent, NativeArray<PersonZone> zoneList)

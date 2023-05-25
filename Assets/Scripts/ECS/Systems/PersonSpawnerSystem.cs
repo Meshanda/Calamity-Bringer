@@ -26,7 +26,7 @@ public partial class PersonSpawnerSystem : SystemBase
 
             // Prefab
             EntityQuery prefabQuery = EntityManager.CreateEntityQuery(typeof(PersonPrefab));
-            NativeArray<PersonPrefab> prefabs = prefabQuery.ToComponentDataArray<PersonPrefab>(Allocator.Persistent);
+            NativeArray<PersonPrefab> prefabs = prefabQuery.ToComponentDataArray<PersonPrefab>(Allocator.Temp);
 
             int randomPrefabIndex = randomComponent.ValueRW.Random.NextInt(0, prefabs.Length);
             Entity prefab = prefabs[randomPrefabIndex].Value;
@@ -34,7 +34,7 @@ public partial class PersonSpawnerSystem : SystemBase
 
             // Spawn zone
             EntityQuery spawnQuery = EntityManager.CreateEntityQuery(typeof(PersonZone));
-            NativeArray<PersonZone> spawnZones = spawnQuery.ToComponentDataArray<PersonZone>(Allocator.Persistent);
+            NativeArray<PersonZone> spawnZones = spawnQuery.ToComponentDataArray<PersonZone>(Allocator.Temp);
 
             int randomZoneIndex = randomComponent.ValueRW.Random.NextInt(0, spawnZones.Length);
             PersonZone zone = spawnZones[randomZoneIndex];
