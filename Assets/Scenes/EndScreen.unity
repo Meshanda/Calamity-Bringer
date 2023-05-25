@@ -574,6 +574,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3cf938a622c4ce4bad676ffe227ac9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _clickClip: {fileID: 8300000, guid: 06b3581892ca6994687a40bd70501374, type: 3}
+  _victoryMusic: {fileID: 0}
 --- !u!4 &1680198806
 Transform:
   m_ObjectHideFlags: 0
@@ -603,6 +605,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: {fileID: 11400000, guid: b1f7afd6448b1da42a05bdb69ba7b68d, type: 2}
   text: {fileID: 1673000847}
+  particles: {fileID: 0}
 --- !u!222 &19309615062236497
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -729,6 +732,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1680198805}
         m_TargetAssemblyTypeName: EndScreenScrip, Assembly-CSharp
         m_MethodName: ClickQuit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1680198805}
+        m_TargetAssemblyTypeName: EndScreenScript, Assembly-CSharp
+        m_MethodName: PlayClickSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -994,6 +1009,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1680198805}
+        m_TargetAssemblyTypeName: EndScreenScript, Assembly-CSharp
+        m_MethodName: PlayClickSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!224 &4853537726570665478
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1224,6 +1251,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1680198805}
         m_TargetAssemblyTypeName: EndScreenScript, Assembly-CSharp
         m_MethodName: ClickReplay
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1680198805}
+        m_TargetAssemblyTypeName: EndScreenScript, Assembly-CSharp
+        m_MethodName: PlayClickSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
