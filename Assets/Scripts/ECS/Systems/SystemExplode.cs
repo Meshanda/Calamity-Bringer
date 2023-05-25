@@ -32,7 +32,7 @@ public partial struct SystemExplode : ISystem
                 var tag = entityManager.GetComponentData<BuildingTag>(entity);
                 ColliderDestroyerSingleton.Instance.DestroyCollider(tag.index);
             }
-            var buffer = entityManager.GetBuffer<LinkedEntityGroup>(entity).ToNativeArray(Unity.Collections.Allocator.FirstUserIndex);
+            var buffer = entityManager.GetBuffer<LinkedEntityGroup>(entity).ToNativeArray(Unity.Collections.Allocator.Temp);
 
             foreach (LinkedEntityGroup child in buffer)
             {
