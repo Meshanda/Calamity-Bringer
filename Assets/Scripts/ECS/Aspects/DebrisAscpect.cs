@@ -53,7 +53,7 @@ public readonly partial struct DebrisAscpect : IAspect
         float3 gravity = new float3(0f,-9.81f,0f);
 
 
-        Velocity.ValueRW.Linear += gravity* deltaTime * 5;
+        Velocity.ValueRW.Linear += gravity* deltaTime * 10f;
 
 
         //Debri.ValueRW.launched = true;
