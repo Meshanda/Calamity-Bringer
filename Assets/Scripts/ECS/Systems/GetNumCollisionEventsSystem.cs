@@ -21,15 +21,6 @@ public partial struct GetNumCollisionEventsSystem : ISystem
             var entityB = collisionEvent.EntityB;
             EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
-            CapsuleTag capTag;
-            BuildingTag buildTag;
-
-            Debug.Log($"A: {World.DefaultGameObjectInjectionWorld.EntityManager.GetName(entityA)}" +
-                $", B: {World.DefaultGameObjectInjectionWorld.EntityManager.GetName(entityB)} ");
-            //Debug.Log($"A: {World.DefaultGameObjectInjectionWorld.EntityManager.GetName(entityA)}" +
-            //           $", B: {World.DefaultGameObjectInjectionWorld.EntityManager.GetName(entityB)}");
-            //ComponentLookup<CapsuleTag> look = new ComponentLookup<CapsuleTag>();
-            //SystemAPI.GetComponent<CapsuleTag>(entityA);
 
 
             if ((entityManager.HasComponent<CapsuleTag>(entityA) && entityManager.HasComponent<BuildingTag>(entityB))
@@ -37,22 +28,13 @@ public partial struct GetNumCollisionEventsSystem : ISystem
             {
                 if (entityManager.HasComponent<BuildingTag>(entityA))
                 {
-                    //entityManager.AddComponent<ExplodeComponent>(entityB);
-                    //buildTag = entityManager.GetComponentData<BuildingTag>(entityA);
-                    //SpeciesCollisionBuffer.AddComponent<ExplodeComponent>( entityA);
                     entityManager.SetComponentEnabled<ExplodeComponent>(entityA, true);
                 }
                 else
                 {
-                    //entityManager.AddComponent<ExplodeComponent>(entityB);
-                    //buildTag = entityManager.GetComponentData<BuildingTag>(entityB);
-                    //SpeciesCollisionBuffer.AddComponent<ExplodeComponent>(entityB);
                     entityManager.SetComponentEnabled<ExplodeComponent>(entityB, true);
                 }
-                Debug.Log($"A: {World.DefaultGameObjectInjectionWorld.EntityManager.GetName(entityA)}" +
-                 $", B: {World.DefaultGameObjectInjectionWorld.EntityManager.GetName(entityB)} ");
             }
-            //CapsuleTag capsule = 
 
 
         }

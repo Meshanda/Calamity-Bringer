@@ -8,7 +8,6 @@ using Unity.Mathematics;
 using Unity.Physics.Systems;
 using Unity.Transforms;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 [BurstCompile]
 public partial struct SetPosToPlayerPosSystem : ISystem
