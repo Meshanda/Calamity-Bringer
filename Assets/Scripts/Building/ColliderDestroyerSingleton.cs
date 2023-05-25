@@ -5,7 +5,7 @@ using UnityEngine;
 public class ColliderDestroyerSingleton : MonoBehaviour
 {
     public static ColliderDestroyerSingleton Instance;
-     public List<BuildIngTagAuthoring> buildings =new List<BuildIngTagAuthoring>();
+    public List<BuildIngTagAuthoring> buildings =new List<BuildIngTagAuthoring>();
     [SerializeField] private GameObject _collider;
 
     public void Awake()
@@ -17,10 +17,10 @@ public class ColliderDestroyerSingleton : MonoBehaviour
     {
         foreach(BuildIngTagAuthoring tag in buildings) 
         {
-            if(tag.trueIndex == index)
+            if (tag.trueIndex == index)
             {
                 Collider coll = tag.gameObject.GetComponent<Collider>();
-
+                tag.GetComponent<Scorer>().Score();
 
                 Destroy(coll);
             }

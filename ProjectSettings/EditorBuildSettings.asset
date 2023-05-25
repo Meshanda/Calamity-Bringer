@@ -24,6 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/DevTest/ChristopheDev/SubScene.unity
     guid: b8f93e22239ae6f4a8d4b123a097f8fc
   - enabled: 1
+    path: Assets/Scenes/GameScene.unity
+    guid: 8e0038f40a94eb64180a6ae3ef6761bc
+  - enabled: 1
     path: Assets/Scenes/EndScreen.unity
     guid: 84df2cc7f40f7a245a4c72865340e95d
   m_configObjects: {}
