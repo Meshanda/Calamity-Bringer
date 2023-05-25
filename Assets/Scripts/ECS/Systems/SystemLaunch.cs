@@ -17,6 +17,8 @@ public partial struct SystemLaunch : ISystem
         EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         //DynamicBuffer<Child> buffer = entityManager.GetBuffer<Child>(expl);
         //Debug.Log(childFromEntity.Length);
+
+        if (GetCapsuleEntity.Instance is null) return;
         
         float3 originExpl = GetCapsuleEntity.Instance.transform.position;   
         new Launch
