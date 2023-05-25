@@ -334,6 +334,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Arrondissement
       objectReference: {fileID: 0}
+    - target: {fileID: 4683538277447647378, guid: bc37de99d04d0a84b8ac341306b3816a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5580195102622111229, guid: bc37de99d04d0a84b8ac341306b3816a,
         type: 3}
       propertyPath: m_RootOrder
@@ -342,7 +347,7 @@ PrefabInstance:
     - target: {fileID: 5580195102622111229, guid: bc37de99d04d0a84b8ac341306b3816a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.079426
+      value: 195
       objectReference: {fileID: 0}
     - target: {fileID: 5580195102622111229, guid: bc37de99d04d0a84b8ac341306b3816a,
         type: 3}
@@ -352,7 +357,7 @@ PrefabInstance:
     - target: {fileID: 5580195102622111229, guid: bc37de99d04d0a84b8ac341306b3816a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 38.55873
+      value: 152.875
       objectReference: {fileID: 0}
     - target: {fileID: 5580195102622111229, guid: bc37de99d04d0a84b8ac341306b3816a,
         type: 3}
@@ -674,12 +679,12 @@ PrefabInstance:
     - target: {fileID: 2873439174019844569, guid: 6b440541fb9e1f64fb593f12534a129d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.000017642975
+      value: -0.000008583069
       objectReference: {fileID: 0}
     - target: {fileID: 2873439174019844569, guid: 6b440541fb9e1f64fb593f12534a129d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.0000023841858
+      value: 0.0000014305115
       objectReference: {fileID: 0}
     - target: {fileID: 2873439174019844569, guid: 6b440541fb9e1f64fb593f12534a129d,
         type: 3}

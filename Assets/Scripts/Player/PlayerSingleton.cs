@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,4 +15,8 @@ public class PlayerSingleton : MonoBehaviour
             Destroy(this);
     }
 
+    private void OnDisable()
+    {
+        Instance = null;
+    }
 }

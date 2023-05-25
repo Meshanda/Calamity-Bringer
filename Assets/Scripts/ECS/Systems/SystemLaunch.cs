@@ -10,12 +10,6 @@ public partial struct SystemLaunch : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        var ecbSingleton = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>();
-        var beginInitBufferSystem = SystemAPI.GetSingleton<BeginInitializationEntityCommandBufferSystem.Singleton>();
-        EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-        //DynamicBuffer<Child> buffer = entityManager.GetBuffer<Child>(expl);
-        //Debug.Log(childFromEntity.Length);
-
         if (GetCapsuleEntity.Instance is null) return;
         
         float3 originExpl = GetCapsuleEntity.Instance.transform.position;   
@@ -29,9 +23,9 @@ public partial struct SystemLaunch : ISystem
 public partial struct Launch : IJobEntity
 {
     public float3 pos;
-    public quaternion quat;
+    
     [BurstCompile]
-    private void Execute(DebrisAscpect cap, [EntityIndexInQuery] int sortKey)
+    private void Execute(DebrisAscpect cap)
     {
         cap.Launch(pos);
     }

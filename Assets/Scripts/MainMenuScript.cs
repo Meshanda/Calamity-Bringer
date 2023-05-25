@@ -22,6 +22,10 @@ public class MainMenuScript : MonoBehaviour
     [SerializeField] private GameObject _mainCanvas;
     [SerializeField] private GameObject _configCanvas;
     [SerializeField] private GameObject _settingsCanvas;
+    
+    [Space(10)]
+    [Header("Audio")]
+    [SerializeField] private AudioClip _clickSound;
 
     private void Start()
     {
@@ -82,6 +86,11 @@ public class MainMenuScript : MonoBehaviour
             default:
                 throw new ArgumentOutOfRangeException(nameof(state), state, null);
         }
+    }
+
+    public void PlayClickSound()
+    {
+        MusicManager.Instance.PutSound(MusicManager.AudioChannel.Sound, _clickSound);
     }
 
     #endregion

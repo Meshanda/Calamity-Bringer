@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
@@ -17,13 +18,19 @@ public readonly partial struct PersonAspect : IAspect
     private readonly RefRO<MovementZoneIndex> _moveZoneIndex;
     
     private const float REACHEDTARGETDISTANCE = .5f;
+    private const float TOLERANCE = 0.1f;
 
     public void Move(float deltaTime)
     {
         float3 direction = math.normalize(_targetPosition.ValueRW.Value - _transform.ValueRW.Position);
 
         _transform.ValueRW.Position += direction * deltaTime * _speed.ValueRO.Value;
+        float rotationAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+        
+        if(Math.Abs(_transform.ValueRO.Rotation.value.y - rotationAngle) > TOLERANCE)
+            _transform.ValueRW.Rotation =Quaternion.Euler(0.0f, rotationAngle, 0.0f);
     }
+
 
     public void TestReachedTargetPosition(RefRW<RandomComponent> randomComponent, NativeArray<PersonZone> zoneList)
     {

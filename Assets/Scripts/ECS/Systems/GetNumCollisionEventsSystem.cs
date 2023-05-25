@@ -10,11 +10,14 @@ using static UnityEngine.EventSystems.EventTrigger;
 [UpdateBefore(typeof(PhysicsSimulationGroup))] // We are updating before `PhysicsSimulationGroup` - this means that we will get the events of the previous frame
 public partial struct GetNumCollisionEventsSystem : ISystem
 {
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<SimulationSingleton>();
+    }
+
     [Unity.Burst.BurstCompile]
     public partial struct CountNumCollisionEvents : ICollisionEventsJob
     {
-        public EntityCommandBuffer SpeciesCollisionBuffer;
-
         public void Execute(CollisionEvent collisionEvent)
         {
             var entityA = collisionEvent.EntityA;
@@ -39,28 +42,12 @@ public partial struct GetNumCollisionEventsSystem : ISystem
 
         }
 
-        //public  void SetEntities(Entity A, Entity B,out CapsuleTag capTag,out BuildingTag buildTag) 
-        //{
-            
-        //}
-
-        //public void Execute(TriggerEvent triggerEvent)
-        //{
-        //    NumCollisionEvents.Value++;
-        //}
     }
 
     [Unity.Burst.BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        //NativeReference<int> numCollisionEvents = new NativeReference<int>(0, Allocator.TempJob);
-        var beginInitBufferSystem = SystemAPI.GetSingleton<BeginInitializationEntityCommandBufferSystem.Singleton>();
-        //World.GetOrCreateSystemManaged<BeginInitializationEntityCommandBufferSystem>();
-
-        var job = new CountNumCollisionEvents
-        {
-            SpeciesCollisionBuffer = beginInitBufferSystem.CreateCommandBuffer(state.WorldUnmanaged)
-        };
+        var job = new CountNumCollisionEvents();
 
         job.Schedule<CountNumCollisionEvents>(
             SystemAPI.GetSingleton<SimulationSingleton>(),

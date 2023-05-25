@@ -22,7 +22,7 @@ public partial struct ApplyGravity : IJobEntity
 {
     public float DeltaTime;
     [BurstCompile]
-    private void Execute(DebrisAscpect cap, [EntityIndexInQuery] int sortKey)
+    private void Execute(DebrisAscpect cap)
     {
         cap.AddGravity(DeltaTime);
     }

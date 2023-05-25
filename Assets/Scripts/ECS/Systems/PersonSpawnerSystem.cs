@@ -6,6 +6,8 @@ using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
 
+
+[UpdateInGroup(typeof(InitializationSystemGroup))]
 public partial class PersonSpawnerSystem : SystemBase
 {
     protected override void OnCreate()
@@ -66,7 +68,10 @@ public partial class PersonSpawnerSystem : SystemBase
             entityCommandBuffer.SetComponent(spawnedEntity, new MovementZoneIndex
             {
                 MovementIndex = randomZoneIndex
-            });                         
+            });
+            
+            prefabs.Dispose();
+            spawnZones.Dispose();
         }
     }
 

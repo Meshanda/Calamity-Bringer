@@ -29,19 +29,6 @@ public readonly partial struct DebrisAscpect : IAspect
         Debri.ValueRW.launched = true;
         Velocity.ValueRW.Linear = math.normalize((Transform.ValueRO.Position - origin)) * 50;
 
-        
-        //Debri.ValueRW.launched = true;
-        ////var test = CurrentMass.ValueRW;
-        //EntityManager.SetComponentData<PhysicsMass>(Entity, PhysicsMass.CreateDynamic(new MassProperties()
-        //{
-        //    AngularExpansionFactor = CurrentMass.AngularExpansionFactor,
-        //    MassDistribution = new MassDistribution()
-        //    {
-        //        Transform = CurrentMass.Transform,
-        //        InertiaTensor = CurrentMass.InverseInertia //TODO!!! I don't know if these two things are the same.
-        //    },
-        //    Volume = 1 //1 is arbitrary. I have no idea how to calculate it.
-        //}, Debri.ValueRO.Mass));
     }
 
     public void AddGravity(float deltaTime)
@@ -55,18 +42,5 @@ public readonly partial struct DebrisAscpect : IAspect
 
         Velocity.ValueRW.Linear += gravity* deltaTime * 10f;
 
-
-        //Debri.ValueRW.launched = true;
-        ////var test = CurrentMass.ValueRW;
-        //EntityManager.SetComponentData<PhysicsMass>(Entity, PhysicsMass.CreateDynamic(new MassProperties()
-        //{
-        //    AngularExpansionFactor = CurrentMass.AngularExpansionFactor,
-        //    MassDistribution = new MassDistribution()
-        //    {
-        //        Transform = CurrentMass.Transform,
-        //        InertiaTensor = CurrentMass.InverseInertia //TODO!!! I don't know if these two things are the same.
-        //    },
-        //    Volume = 1 //1 is arbitrary. I have no idea how to calculate it.
-        //}, Debri.ValueRO.Mass));
     }
 }
