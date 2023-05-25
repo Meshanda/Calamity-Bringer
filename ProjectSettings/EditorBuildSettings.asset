@@ -9,21 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: d655f52b73c2f1545ad776799cd11aa9
   - enabled: 1
-    path: Assets/Scenes/DevTest/KillianDev.unity
-    guid: 4dc2bc0cdcec14d4e936c28d9078476c
-  - enabled: 1
-    path: Assets/Scenes/DevTest/LionelDev.unity
-    guid: d2d9e2396147e6d4b887fe5702e5345a
-  - enabled: 1
-    path: Assets/Scenes/DevTest/ChristopheDev/ChristopheDev.unity
-    guid: 0445d119e34ce354e926d71dacb1c09e
-  - enabled: 1
-    path: Assets/Scenes/SubScenes/LionelTest.unity
-    guid: ee3a025b53db9c84e9e7c363d057b4fe
-  - enabled: 1
-    path: Assets/Scenes/DevTest/ChristopheDev/SubScene.unity
-    guid: b8f93e22239ae6f4a8d4b123a097f8fc
-  - enabled: 1
     path: Assets/Scenes/GameScene.unity
     guid: 8e0038f40a94eb64180a6ae3ef6761bc
   - enabled: 1
