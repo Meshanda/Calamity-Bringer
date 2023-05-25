@@ -20,6 +20,8 @@ public class SettingsMenu : MonoBehaviour
     [Space(5)]
     [SerializeField] private Slider _soundSlider;
     [SerializeField] private FloatVariable _soundVolume;
+    [Space(5)] 
+    [SerializeField] private AudioClip _sliderFinish;
 
     private void Start()
     {
@@ -57,5 +59,10 @@ public class SettingsMenu : MonoBehaviour
     public void OnSoundVolumeChanged(float value)
     {
         MusicManager.Instance.ChangeVolume(MusicManager.AudioChannel.Sound, value);
+    }
+
+    public void PlaySliderSound()
+    {
+        MusicManager.Instance.PutSound(MusicManager.AudioChannel.Sound, _sliderFinish);
     }
 }

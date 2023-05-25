@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] private AudioClip _playerStep;
     
 #region Movement
     [Space(5)]
@@ -215,5 +216,11 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.color = _grounded ? Color.green : Color.red;
         
         Gizmos.DrawSphere(SpherePosition.position, GroundRadius);
+    }
+
+    public void PlayerStep()
+    {
+        MusicManager.Instance.PutSound(MusicManager.AudioChannel.Sound, _playerStep);
+        //TODO: camera shake
     }
 }

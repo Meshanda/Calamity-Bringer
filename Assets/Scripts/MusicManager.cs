@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MusicManager : GenericSingleton<MusicManager>
 {
+    [Serializable]
     public enum AudioChannel
     {
         Music,
@@ -46,6 +47,11 @@ public class MusicManager : GenericSingleton<MusicManager>
         }
     }
 
+    public void SetMusicLoop(bool active)
+    {
+        _musicSource.loop = active;
+    }
+    
     public void ChangeVolume(AudioChannel channel, float volume)
     {
         switch (channel)

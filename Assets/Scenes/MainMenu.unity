@@ -4523,7 +4523,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -6217,6 +6217,7 @@ MonoBehaviour:
   _musicVolume: {fileID: 11400000, guid: 796bcb89a4eb70643b3e7e0af47d9621, type: 2}
   _soundSlider: {fileID: 1625399444400565351}
   _soundVolume: {fileID: 11400000, guid: e667ee82f7b2c5c41a9759ed134e0ad5, type: 2}
+  _sliderFinish: {fileID: 8300000, guid: acb4e25cd60053e4fa09cf640ab5b061, type: 3}
 --- !u!1 &968873369
 GameObject:
   m_ObjectHideFlags: 0
@@ -14242,6 +14243,7 @@ MonoBehaviour:
   _configCanvas: {fileID: 2136591177}
   _settingsCanvas: {fileID: 962433839}
   _clickSound: {fileID: 8300000, guid: 06b3581892ca6994687a40bd70501374, type: 3}
+  _menuMusic: {fileID: 8300000, guid: 6fdebd6cadbe9b8498e7cc4a492d23ed, type: 3}
 --- !u!4 &2067781497
 Transform:
   m_ObjectHideFlags: 0
@@ -17217,6 +17219,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1625399444400565350}
   - component: {fileID: 1625399444400565351}
+  - component: {fileID: 1625399444400565352}
   m_Layer: 5
   m_Name: SoundSlider
   m_TagString: Untagged
@@ -17310,6 +17313,35 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1625399444400565352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1625399444400565345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 962433844}
+          m_TargetAssemblyTypeName: SettingsMenu, Assembly-CSharp
+          m_MethodName: PlaySliderSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!224 &1625399444423042978
 RectTransform:
   m_ObjectHideFlags: 0

@@ -615,8 +615,10 @@ MonoBehaviour:
       m_Calls: []
   _pauseCanvas: {fileID: 1935025875}
   _hudCanvas: {fileID: 1768886408}
-  _objectToDisableOnVictory:
-  - {fileID: 1768886408}
+  _gameMusic: {fileID: 8300000, guid: 21107e6761af3494382fa23c54bc4878, type: 3}
+  _pauseMusic: {fileID: 8300000, guid: e3e2bc141dc48244c8cfd115ee218318, type: 3}
+  _destroyedBuildingSound: {fileID: 8300000, guid: 71f3f17c6947b73469923e8aea169794,
+    type: 3}
 --- !u!114 &1257075536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1441,7 +1443,7 @@ PrefabInstance:
     - target: {fileID: 2873439174019844569, guid: 6b440541fb9e1f64fb593f12534a129d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.000005364418
+      value: -0.0000030994415
       objectReference: {fileID: 0}
     - target: {fileID: 2873439174019844569, guid: 6b440541fb9e1f64fb593f12534a129d,
         type: 3}
@@ -1473,6 +1475,11 @@ PrefabInstance:
       propertyPath: m_Cameras.Array.data[0]
       value: 
       objectReference: {fileID: 1768886406}
+    - target: {fileID: 3051038362639063635, guid: 6b440541fb9e1f64fb593f12534a129d,
+        type: 3}
+      propertyPath: _punchSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 69423b1f1b1dd734cb8a3ab996198b86, type: 3}
     - target: {fileID: 3975668633074406739, guid: 6b440541fb9e1f64fb593f12534a129d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1502,6 +1509,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.00085959735
+      objectReference: {fileID: 0}
+    - target: {fileID: 6113496903573278404, guid: 6b440541fb9e1f64fb593f12534a129d,
+        type: 3}
+      propertyPath: field of view
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6113496903573278404, guid: 6b440541fb9e1f64fb593f12534a129d,
+        type: 3}
+      propertyPath: far clip plane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6113496903573278404, guid: 6b440541fb9e1f64fb593f12534a129d,
+        type: 3}
+      propertyPath: near clip plane
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6113496903573278404, guid: 6b440541fb9e1f64fb593f12534a129d,
+        type: 3}
+      propertyPath: orthographic size
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6113496903573278404, guid: 6b440541fb9e1f64fb593f12534a129d,
         type: 3}

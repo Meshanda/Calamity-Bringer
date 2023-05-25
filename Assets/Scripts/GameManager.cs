@@ -4,6 +4,7 @@ using UnityEngine;
 using ScriptableObjects.Variables;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
 {
@@ -29,7 +30,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _hudCanvas;
     
     [Space(10)]
-    [SerializeField] private List<GameObject> _objectToDisableOnVictory;
+    [Header("Audio")]
+    [SerializeField] private AudioClip _gameMusic;
+    [SerializeField] private AudioClip _pauseMusic;
+    [SerializeField] private AudioClip _destroyedBuildingSound;
+    
 
     public static event Action GameUnpaused;
 
@@ -37,19 +42,28 @@ public class GameManager : MonoBehaviour
     {
         TimerSystem.TimerFinished += OnTimerFinished;
         PauseSystem.GamePaused += OnGamePaused;
+        ColliderDestroyerSingleton.BuildingDestroyed += OnBuildingDestroyed;
     }
 
     private void OnDisable()
     {
         TimerSystem.TimerFinished -= OnTimerFinished;
         PauseSystem.GamePaused -= OnGamePaused;
+        ColliderDestroyerSingleton.BuildingDestroyed -= OnBuildingDestroyed;
+    }
+
+    private void OnBuildingDestroyed(GameObject building)
+    {
+        building.GetComponent<Scorer>().Score();
+        MusicManager.Instance.PutSound(MusicManager.AudioChannel.Sound, _destroyedBuildingSound);
     }
 
     private void OnGamePaused()
     {
         Time.timeScale = 0f;
         Cursor.lockState = CursorLockMode.None;
-        
+        MusicManager.Instance.PutSound(MusicManager.AudioChannel.Music, _pauseMusic);
+
         _pauseCanvas.SetActive(true);
         _hudCanvas.SetActive(false);
     }
@@ -59,6 +73,7 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         score.value = 0;
         OnScoreUpdate.Invoke();
+        MusicManager.Instance.PutSound(MusicManager.AudioChannel.Music, _gameMusic);
 
         _hudCanvas.SetActive(true);
         _pauseCanvas.SetActive(false);
@@ -72,7 +87,8 @@ public class GameManager : MonoBehaviour
     
     private void OnTimerFinished()
     {
-        _objectToDisableOnVictory.ForEach(o => o.SetActive(false));
+        _hudCanvas.SetActive(false);
+        _pauseCanvas.SetActive(false);
         
         SceneManager.LoadSceneAsync(SceneReferences.END_SCENE, LoadSceneMode.Additive)
             .completed += _ => Cursor.lockState = CursorLockMode.None;
@@ -88,6 +104,7 @@ public class GameManager : MonoBehaviour
         GameUnpaused?.Invoke();
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
+        MusicManager.Instance.PutSound(MusicManager.AudioChannel.Music, _gameMusic);
         
         _pauseCanvas.SetActive(false);
         _hudCanvas.SetActive(true);

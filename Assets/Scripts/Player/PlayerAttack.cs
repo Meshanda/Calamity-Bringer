@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
+    [Header("Audio ")]
+    [SerializeField] private AudioClip _punchSound;
     [SerializeField] private GameObject _armCollider;
     [SerializeField] private Animator _animator;
     
@@ -52,6 +54,7 @@ public class PlayerAttack : MonoBehaviour
         _animator.SetTrigger("Attack");
         _isAttacking = true;
         _armCollider.SetActive(true);
+        MusicManager.Instance.PutSound(MusicManager.AudioChannel.Sound, _punchSound);
     }
 
     public void OnAttackAnimationEnd()

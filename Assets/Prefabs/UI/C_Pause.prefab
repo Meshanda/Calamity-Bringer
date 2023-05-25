@@ -257,6 +257,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 676182968080244245}
+        m_TargetAssemblyTypeName: PauseScreen, Assembly-CSharp
+        m_MethodName: PlayClickSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8658907310462814706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -381,6 +393,7 @@ GameObject:
   - component: {fileID: 4378048711582618261}
   - component: {fileID: 4462562182982182687}
   - component: {fileID: 3659240040824568039}
+  - component: {fileID: 676182968080244245}
   m_Layer: 5
   m_Name: C_Pause
   m_TagString: Untagged
@@ -406,7 +419,7 @@ RectTransform:
   - {fileID: 120629430135028816}
   - {fileID: 1906540077168506589}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -505,6 +518,19 @@ MonoBehaviour:
   score: {fileID: 11400000, guid: b1f7afd6448b1da42a05bdb69ba7b68d, type: 2}
   text: {fileID: 2433214647910888194}
   particles: {fileID: 0}
+--- !u!114 &676182968080244245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1896279569827821662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0e34e92cd8fb134b86925ca52547cc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _clickSound: {fileID: 8300000, guid: 06b3581892ca6994687a40bd70501374, type: 3}
 --- !u!1 &2843292651356585969
 GameObject:
   m_ObjectHideFlags: 0
@@ -1108,6 +1134,18 @@ MonoBehaviour:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: ClickUnpause
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 676182968080244245}
+        m_TargetAssemblyTypeName: PauseScreen, Assembly-CSharp
+        m_MethodName: PlayClickSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
