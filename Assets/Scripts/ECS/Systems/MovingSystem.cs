@@ -32,7 +32,7 @@ public partial struct MovingSystem : ISystem
         jobHandle.Complete();
 
         EntityQuery peopleEntityQuery = World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntityQuery(typeof(PersonZone));
-        NativeArray<PersonZone> movementZones = peopleEntityQuery.ToComponentDataArray<PersonZone>(Allocator.Persistent);
+        NativeArray<PersonZone> movementZones = peopleEntityQuery.ToComponentDataArray<PersonZone>(Allocator.TempJob);
 
         new TestReachTaretPositionJob
         {
