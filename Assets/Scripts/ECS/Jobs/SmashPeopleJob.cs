@@ -14,7 +14,7 @@ public partial struct SmashPeopleJob : IJobEntity
         // Check if player is too close
         float3 position = personAspect.GetAspectPosition();
 
-        if(math.distancesq(PlayerPosition, position) < 200)
+        if(math.distancesq(PlayerPosition, position) < 75)
         {
             EntityCommandBuffer.DestroyEntity(personAspect.GetAspectEntity());
             // Debug.Log("DESTROY");
