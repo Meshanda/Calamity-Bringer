@@ -11,8 +11,6 @@ public partial struct SystemLaunch : ISystem
     public void OnUpdate(ref SystemState state)
     {
         var ecbSingleton = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>();
-        Entity expl ;
-        DebrisExplosion test;
         var beginInitBufferSystem = SystemAPI.GetSingleton<BeginInitializationEntityCommandBufferSystem.Singleton>();
         EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         //DynamicBuffer<Child> buffer = entityManager.GetBuffer<Child>(expl);

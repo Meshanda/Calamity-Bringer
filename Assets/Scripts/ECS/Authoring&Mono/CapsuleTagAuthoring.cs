@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class CapsuleTagAuthoring : MonoBehaviour
 {
