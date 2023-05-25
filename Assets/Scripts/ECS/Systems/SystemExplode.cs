@@ -54,12 +54,11 @@ public partial struct ExplodeJob : IJobEntity
     [BurstCompile]
     private void Execute(BuildingAspect building)
     {
-        EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         
         //SpeciesCollisionBuffer.DestroyEntity(cap);
         SpeciesCollisionBuffer.RemoveComponent<PhysicsCollider>(building.Entity);
         SpeciesCollisionBuffer.RemoveComponent<PhysicsMass>(building.Entity);
-        entityManager.SetComponentEnabled<ExplodeComponent>(building.Entity, false);
+        SpeciesCollisionBuffer.SetComponentEnabled<ExplodeComponent>(building.Entity, false);
 
     }
 }
