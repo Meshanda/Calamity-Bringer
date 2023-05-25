@@ -10,7 +10,7 @@ public partial struct SystemLaunch : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        if (GetCapsuleEntity.Instance is null) return;
+        if (GetCapsuleEntity.Instance is null || GetCapsuleEntity.Instance.transform is null) return;
         
         float3 originExpl = GetCapsuleEntity.Instance.transform.position;   
         new Launch
