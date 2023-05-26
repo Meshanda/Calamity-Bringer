@@ -13,7 +13,7 @@ public class ScoreDisplay : MonoBehaviour
         if (GameManager.Instance is not null)
             GameManager.Instance.OnScoreUpdate?.AddListener(UpdateDisplay);
         
-        UpdateDisplay();
+        text.text = $"Score : {score.value}";
     }
 
     private void UpdateDisplay()
