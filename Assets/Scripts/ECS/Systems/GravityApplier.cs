@@ -11,8 +11,12 @@ public partial struct  GravityApplier : ISystem
     public void OnUpdate(ref SystemState state)
     {
         float deltatTime = SystemAPI.Time.DeltaTime;
+        var beginInitBufferSystem = SystemAPI.GetSingleton<BeginInitializationEntityCommandBufferSystem.Singleton>();
+        var commandBuffer = beginInitBufferSystem.CreateCommandBuffer(state.WorldUnmanaged).AsParallelWriter();
+
         new ApplyGravity
         {
+            SpeciesCollisionBuffer = commandBuffer,
             DeltaTime = deltatTime
         }.ScheduleParallel();
     }
@@ -21,9 +25,14 @@ public partial struct  GravityApplier : ISystem
 public partial struct ApplyGravity : IJobEntity
 {
     public float DeltaTime;
+     public EntityCommandBuffer.ParallelWriter SpeciesCollisionBuffer;
     [BurstCompile]
-    private void Execute(DebrisAscpect cap)
+    private void Execute(DebrisAscpect cap, [EntityIndexInQuery] int sortKey)
     {
-        cap.AddGravity(DeltaTime);
+        bool toDestroy = cap.AddGravity(DeltaTime);
+        if(!toDestroy) 
+        {
+            SpeciesCollisionBuffer.DestroyEntity(sortKey,cap.Entity);
+        }
     }
 }

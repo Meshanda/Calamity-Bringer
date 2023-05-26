@@ -31,16 +31,30 @@ public readonly partial struct DebrisAscpect : IAspect
 
     }
 
-    public void AddGravity(float deltaTime)
+    public bool AddGravity(float deltaTime)
     {
-        if (!Debri.ValueRO.launched)
-            return;
-
+        if (!Debri.ValueRO.launched )
+            return true;
+        
 
         float3 gravity = new float3(0f,-9.81f,0f);
 
+        if (Transform.ValueRW.Position.y <= 1)
+        {
+            Velocity.ValueRW.Linear = gravity * deltaTime * 10f;
+        }
+        else
+            Velocity.ValueRW.Linear += gravity* deltaTime * 10f;
 
-        Velocity.ValueRW.Linear += gravity* deltaTime * 10f;
 
+        if (Transform.ValueRW.Position.y <= -5)
+        {
+
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 }

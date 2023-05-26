@@ -14,7 +14,7 @@ public class BuildIngTagAuthoring : MonoBehaviour
     {
         if (gameObject.GetComponent<BoxCollider>() == null)
             gameObject.AddComponent<BoxCollider>();
-        ColliderDestroyerSingleton.Instance.buildings.Add(this);
+
         trueIndex = index;
     }
 }
