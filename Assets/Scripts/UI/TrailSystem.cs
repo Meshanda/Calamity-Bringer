@@ -48,7 +48,7 @@ public class TrailSystem : MonoBehaviour
                 progress % sideTime / sideTime
             );
 
-            _renderer.time = progress / fullTime * 5;
+            _renderer.time = progress / fullTime * (_edges.Length + 1);
             _renderer.endColor = Color.Lerp(Color.white, Color.red, progress / fullTime);
             _renderer.widthMultiplier = _trailWidthGrowthCurve.Evaluate(progress / fullTime) * _maxTrailWidth;
 
