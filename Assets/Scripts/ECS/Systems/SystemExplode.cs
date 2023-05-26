@@ -4,15 +4,21 @@ using Unity.Entities;
 using Unity.Physics;
 using UnityEngine;
 
+[BurstCompile]
 public partial struct SystemExplode : ISystem
 {
     [BurstCompile]
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<EndSimulationEntityCommandBufferSystem.Singleton>();
+    }
+
+    [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        List<Entity> list = new List<Entity>(); 
         EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
-        var ECB = SystemAPI.GetSingleton<BeginInitializationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(state.WorldUnmanaged);
+        var ECB = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(state.WorldUnmanaged);
 
         foreach (var (buildingAspect, entity) in SystemAPI.Query<BuildingAspect>().WithEntityAccess())
         {
@@ -25,7 +31,7 @@ public partial struct SystemExplode : ISystem
             {
                 if (!entityManager.HasComponent<BuildingTag>(child.Value))
                 {
-                    list.Add(child.Value);
+                    ECB.AddComponent<DebrisExplosion>(child.Value);
                 }
             }
             
@@ -36,10 +42,6 @@ public partial struct SystemExplode : ISystem
             
         }
 
-        foreach (var child in list)
-        {
-            entityManager.AddComponent<DebrisExplosion>(child);
-        }
         
     }
 }
