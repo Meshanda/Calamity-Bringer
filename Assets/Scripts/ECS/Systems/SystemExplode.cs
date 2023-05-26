@@ -2,63 +2,46 @@ using System.Collections.Generic;
 using Unity.Burst;
 using Unity.Entities;
 using Unity.Physics;
+using UnityEngine;
 
+[BurstCompile]
 public partial struct SystemExplode : ISystem
 {
     [BurstCompile]
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<EndSimulationEntityCommandBufferSystem.Singleton>();
+    }
+
+    [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        List<Entity> list = new List<Entity>(); 
         EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
-        var beginInitBufferSystem = SystemAPI.GetSingleton<BeginInitializationEntityCommandBufferSystem.Singleton>();
+        var ECB = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(state.WorldUnmanaged);
 
         foreach (var (buildingAspect, entity) in SystemAPI.Query<BuildingAspect>().WithEntityAccess())
         {
             
             buildingAspect.DestroyCollider();
 
-            var commandBuffer = beginInitBufferSystem.CreateCommandBuffer(state.WorldUnmanaged);
-            
-            commandBuffer.RemoveComponent<BuildingTag>(entity);
-            
             var buffer = entityManager.GetBuffer<LinkedEntityGroup>(entity).ToNativeArray(Unity.Collections.Allocator.Temp);
 
             foreach (LinkedEntityGroup child in buffer)
             {
                 if (!entityManager.HasComponent<BuildingTag>(child.Value))
                 {
-                    list.Add(child.Value);
+                    ECB.AddComponent<DebrisExplosion>(child.Value);
                 }
-
             }
-            new ExplodeJob
-            {
-                SpeciesCollisionBuffer = commandBuffer
-            }.Schedule(state.Dependency).Complete();
+            
+            ECB.RemoveComponent<PhysicsCollider>(entity);
+            ECB.RemoveComponent<PhysicsMass>(entity);
+            ECB.RemoveComponent<ExplodeComponent>(entity);
+            ECB.RemoveComponent<BuildingTag>(entity);
+            
         }
 
-        foreach (var child in list)
-        {
-            entityManager.AddComponent<DebrisExplosion>(child);
-        }
         
-    }
-}
-
-[BurstCompile]
-public partial struct ExplodeJob : IJobEntity
-{
-    public EntityCommandBuffer SpeciesCollisionBuffer;
-    
-    [BurstCompile]
-    private void Execute(BuildingAspect building)
-    {
-        
-        //SpeciesCollisionBuffer.DestroyEntity(cap);
-        SpeciesCollisionBuffer.RemoveComponent<PhysicsCollider>(building.Entity);
-        SpeciesCollisionBuffer.RemoveComponent<PhysicsMass>(building.Entity);
-        SpeciesCollisionBuffer.SetComponentEnabled<ExplodeComponent>(building.Entity, false);
-
     }
 }
