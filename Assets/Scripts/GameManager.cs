@@ -34,7 +34,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioClip _gameMusic;
     [SerializeField] private AudioClip _pauseMusic;
     [SerializeField] private AudioClip _destroyedBuildingSound;
-    
 
     public static event Action GameUnpaused;
 
@@ -52,7 +51,7 @@ public class GameManager : MonoBehaviour
         ColliderDestroyerSingleton.BuildingDestroyed -= OnBuildingDestroyed;
     }
 
-    private void OnBuildingDestroyed(GameObject building)
+    public void OnBuildingDestroyed(GameObject building)
     {
         building.GetComponent<Scorer>().Score();
         MusicManager.Instance.PutSound(MusicManager.AudioChannel.Sound, _destroyedBuildingSound);
