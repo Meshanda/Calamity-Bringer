@@ -1,5 +1,8 @@
 # Calamity Bringer
 third person shooter, destroyable objects, action
+
+## Itch.io 
+https://meshanda.itch.io/calamity-bringer
  
 ## Context
 This game has been made for educational purpose during the second year of the Msc Video Game programming in Gaming Campus with the supervision of Kevin Roussel.  
